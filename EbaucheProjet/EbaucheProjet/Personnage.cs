@@ -24,6 +24,11 @@ namespace EbaucheProjet
 
         public Vector2 dir; // Direction du personnage
 
+        public new void SetHitbox()
+        {
+            hitbox = new Rectangle((int)pos.X, (int)pos.Y, largeur , hauteur);            
+        }
+
         public virtual void Mouv() // Fct mouvement
         {
             mov = Vector2.Zero;
@@ -63,16 +68,31 @@ namespace EbaucheProjet
 
             Mouv();
 
-            pos += mov; // On bouge
+            // On sépare le mouvement en X et Y
+            // En X
+            pos.X += mov.X; // On bouge
             SetHitbox();
 
-            for (int i = 0; i < map.hauteur; i++)
-                for (int j = 0; j < map.largeur; j++)
+            for (int i = 0; i < map.largeur; i++)
+                for (int j = 0; j < map.hauteur; j++)
                     if (hitbox.Intersects(map.terrain[i, j].hitbox)) { intersect = true; } // Si ça nous fait rentrer dans le mur
 
-            if (intersect == true) pos -= mov; // On annule
+            if (intersect == true) pos.X -= mov.X; // On annule
             SetHitbox();
-            
+
+            // Et en Y
+            pos.Y += mov.Y; // On bouge
+            SetHitbox();
+
+            for (int i = 0; i < map.largeur; i++)
+                for (int j = 0; j < map.hauteur; j++)
+                    if (hitbox.Intersects(map.terrain[i, j].hitbox)) { intersect = true; } // Si ça nous fait rentrer dans le mur
+
+            if (intersect == true) pos.Y -= mov.Y; // On annule
+            SetHitbox();
+
+            // Fin des hitbox check
+
 
             mid = new Vector2(pos.X + (largeur / 2), pos.Y + (hauteur / 2)); // On definit le milieu du perso, vu qu'on a sa largeur/hauteur
 
