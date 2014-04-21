@@ -59,7 +59,7 @@ namespace EbaucheProjet
             jacket = new PlayablePersonnage("Jacket", new Vector2(-100,-100), 8, Color.White, Keys.Z, Keys.Q, Keys.S, Keys.D); // New bonhomme (jacket)
             cursor = new Cursor();
 
-            particleEngine = new ParticleEngine(new Vector2(0, 0), 2);
+            particleEngine = new ParticleEngine(new Vector2(0, 0), 0);
 
             FPS = new FPSCounter();
 
@@ -117,7 +117,7 @@ namespace EbaucheProjet
             jacket.Update(gameTime, cursor.globalMid, gameMap, camera); // Jacket s'update
             cursor.Update(gameTime, camera);
             Options.GetOptions(graphics);
-            particleEngine.Update(jacket.mid);
+            particleEngine.Update(gameTime, jacket.mid);
 
             base.Update(gameTime);
         }
