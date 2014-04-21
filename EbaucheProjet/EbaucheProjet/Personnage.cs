@@ -57,42 +57,55 @@ namespace EbaucheProjet
                 nbPhases = nbPhasesTotal;
         }*/
 
-        public new void Update(GameTime gt, Vector2 lookedPoint, Map map) // Update position
+        public void MouvWithHitBoxes(Map map)
         {
             bool intersect = false;
 
-            Mouv();
-
             // On sépare le mouvement en X et Y
             // En X
-            pos.X += mov.X; // On bouge
-            SetHitbox();
+            float x = 0;
+            while (x != mov.X && !intersect)
+            {
+                pos.X += x; // On bouge
+                SetHitbox();
 
-            foreach (Rectangle r in hitbox)
-                for (int i = 0; i < map.largeur; i++)
-                    for (int j = 0; j < map.hauteur; j++)
-                        foreach (Rectangle r2 in map.terrain[i,j].hitbox)
-                            if (r.Intersects(r2)) { intersect = true; } // Si ça nous fait rentrer dans le mur
+                foreach (Rectangle r in hitbox)
+                    for (int i = 0; i < map.largeur; i++)
+                        for (int j = 0; j < map.hauteur; j++)
+                            foreach (Rectangle r2 in map.terrain[i, j].hitbox)
+                                if (r.Intersects(r2)) { intersect = true; } // Si ça nous fait rentrer dans le mur
 
-            if (intersect == true) pos.X -= mov.X; // On annule
-            SetHitbox();
+                if (intersect == true) pos.X -= x; // On annule
+                SetHitbox();
 
+                x += (mov.X>0)?1:-1;
+            }
             // Et en Y
             intersect = false;
-            pos.Y += mov.Y; // On bouge
-            SetHitbox();
+            float y= 0;
+            while (y != mov.Y && !intersect)
+            {
+                pos.Y += y; // On bouge
+                SetHitbox();
 
-            foreach (Rectangle r in hitbox)
-                for (int i = 0; i < map.largeur; i++)
-                    for (int j = 0; j < map.hauteur; j++)
-                        foreach (Rectangle r2 in map.terrain[i, j].hitbox)
-                            if (r.Intersects(r2)) { intersect = true; } // Si ça nous fait rentrer dans le mur
+                foreach (Rectangle r in hitbox)
+                    for (int i = 0; i < map.largeur; i++)
+                        for (int j = 0; j < map.hauteur; j++)
+                            foreach (Rectangle r2 in map.terrain[i, j].hitbox)
+                                if (r.Intersects(r2)) { intersect = true; } // Si ça nous fait rentrer dans le mur
 
-            if (intersect == true) pos.Y -= mov.Y; // On annule
-            SetHitbox();
+                if (intersect == true) pos.Y -= y; // On annule
+                SetHitbox();
 
+                y += (mov.Y > 0) ? 1 : -1;
+            }
             // Fin des hitbox check
+        }
 
+        public new void Update(GameTime gt, Vector2 lookedPoint, Map map) // Update position
+        {
+            Mouv();
+            MouvWithHitBoxes(map);
 
             mid = new Vector2(pos.X + (largeur / 2), pos.Y + (hauteur / 2)); // On definit le milieu du perso, vu qu'on a sa largeur/hauteur
 
