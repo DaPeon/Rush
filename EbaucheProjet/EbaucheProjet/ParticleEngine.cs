@@ -37,13 +37,6 @@ namespace EbaucheProjet
 
             for (int i = 0; i < particlesPerSec; i++) particles.Add(NewParticle());
 
-            /*
-            foreach(Particle p in particles)
-            {
-                p.Update();
-                if (p.TTL <= 0) particles.Remove(p);
-            }*/
-
             for (int i = 0; i < particles.Count; i++)
             {
                 particles[i].Update();
@@ -53,10 +46,7 @@ namespace EbaucheProjet
 
         public void Draw(SpriteBatch sb)
         {
-            foreach (Particle p in particles)
-            {
-                p.Draw(sb);
-            }
+            foreach (Particle p in particles) p.Draw(sb);
         }
 
         public Particle NewParticle()
@@ -65,12 +55,12 @@ namespace EbaucheProjet
 
             Vector2 position = pos;
             Vector2 dir = Vector2.Normalize(new Vector2((float)(r.NextDouble() * 2 - 1), (float)(r.NextDouble() * 2 - 1)));
-            float speed = (float)r.NextDouble() * 5;
+            float speed = (float)r.NextDouble() * 3f + 0.2f;
             float angle = 0f;
             float angularVelocity = 0.1f * (float)(r.NextDouble() * 2 - 1);
             Color color = new Color((float)r.NextDouble(), (float)r.NextDouble(), (float)r.NextDouble()) * 0.5f;
-            float size = (float)r.NextDouble();
-            int ttl = 20 + r.Next(40);
+            float size = (float)r.NextDouble() * 0.7f + 0.5f;
+            int ttl = 50 + r.Next(40);
 
             return new Particle(type, position, dir, speed, angle, angularVelocity, color, size, ttl);
         }
@@ -121,20 +111,26 @@ namespace EbaucheProjet
 
     public static class ParticleTextures
     {
+        public static Texture2D air; // 0
         public static Texture2D circle; // 1
+        public static Texture2D blood; // 2
 
         public static Texture2D GetTexture(int n)
         {
             switch (n)
             {
+                case 0: return air; break;
                 case 1: return circle; break;
-                default: return circle; break;
+                case 2: return blood; break;
+                default: return air; break;
             }
         }
 
         public static void LoadTextures(ContentManager cm)
         {
+            air = cm.Load<Texture2D>("particles/air");
             circle = cm.Load<Texture2D>("particles/circle");
+            blood = cm.Load<Texture2D>("particles/blood");
         }
     }
 }

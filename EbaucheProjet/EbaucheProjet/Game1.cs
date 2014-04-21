@@ -33,8 +33,11 @@ namespace EbaucheProjet
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-
-            IsFixedTimeStep = false;
+            
+            
+            //HARDCORE
+            //IsFixedTimeStep = false;
+            //graphics.SynchronizeWithVerticalRetrace = false;
         }
 
         /// <summary>
@@ -56,7 +59,7 @@ namespace EbaucheProjet
             jacket = new PlayablePersonnage("Jacket", new Vector2(-100,-100), 8, Color.White, Keys.Z, Keys.Q, Keys.S, Keys.D); // New bonhomme (jacket)
             cursor = new Cursor();
 
-            particleEngine = new ParticleEngine(new Vector2(0, 0), 1);
+            particleEngine = new ParticleEngine(new Vector2(0, 0), 2);
 
             FPS = new FPSCounter();
 
