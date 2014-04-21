@@ -49,7 +49,7 @@ namespace EbaucheProjet
             Options.Init(graphics);
 
             camera = new Camera2D(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
-            jacket = new PlayablePersonnage("jacket", new Vector2(-100,-100), 8, Color.White, Keys.Z, Keys.Q, Keys.S, Keys.D); // New bonhomme (jacket)
+            jacket = new PlayablePersonnage("Jacket", new Vector2(-100,-100), 8, Color.White, Keys.Z, Keys.Q, Keys.S, Keys.D); // New bonhomme (jacket)
             cursor = new Cursor();
 
             FPS = new FPSCounter();

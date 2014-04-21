@@ -61,7 +61,7 @@ namespace EbaucheProjet
         public void SetHitbox()
         {
             hitbox = new List<Rectangle>();
-            hitbox.Add(new Rectangle((int)pos.X, (int)pos.Y, 1, 1) );
+            hitbox.Add(new Rectangle((int)pos.X + 10, (int)pos.Y + 10, 44, 44));
         }
 
         public void MouvWithHitBoxes(Map map)
