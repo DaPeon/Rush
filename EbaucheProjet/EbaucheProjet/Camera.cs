@@ -159,9 +159,9 @@ namespace EbaucheProjet
             if (!Mouv())
             {
                 float delta = (float)gameTime.ElapsedGameTime.TotalSeconds;
-                pos = focus;
-                //pos.X += (focus.X - pos.X) * speed * delta;
-                //pos.Y += (focus.Y - pos.Y) * speed * delta;
+
+                pos.X += (focus.X - pos.X) * speed * delta;
+                pos.Y += (focus.Y - pos.Y) * speed * delta;
             }
         }
     }

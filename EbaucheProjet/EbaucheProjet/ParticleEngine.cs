@@ -16,7 +16,6 @@ namespace EbaucheProjet
         public Vector2 pos;
         public int type;
         public List<Particle> particles;
-        public Random r;
 
         public int particlesPerSec;
 
@@ -28,12 +27,11 @@ namespace EbaucheProjet
             this.type = type;
             this.particlesPerSec = particlesPerSec;
 
-            r = new Random();
             particles = new List<Particle>();
         }
 
-        public void Update(GameTime gt) { Update(gt, pos); }
-        public void Update(GameTime gt, Vector2 pos)
+        public void Update() { Update(pos); }
+        public void Update(Vector2 pos)
         {
             this.pos = pos;
 
@@ -41,7 +39,7 @@ namespace EbaucheProjet
 
             for (int i = 0; i < particles.Count; i++)
             {
-                particles[i].Update(gt);
+                particles[i].Update();
                 if (particles[i].TTL <= 0) particles.Remove(particles[i]);
             }
         }
@@ -53,14 +51,16 @@ namespace EbaucheProjet
 
         public Particle NewParticle()
         {
+            Random r = new Random();
+
             Vector2 position = pos;
             Vector2 dir = Vector2.Normalize(new Vector2((float)(r.NextDouble() * 2 - 1), (float)(r.NextDouble() * 2 - 1)));
             float speed = (float)r.NextDouble() * 3f + 0.2f;
             float angle = 0f;
             float angularVelocity = 0.1f * (float)(r.NextDouble() * 2 - 1);
-            Color color = new Color((float)r.NextDouble() * 255, (float)r.NextDouble() * 255, (float)r.NextDouble() * 255) * 0.5f;
+            Color color = new Color((float)r.NextDouble(), (float)r.NextDouble(), (float)r.NextDouble()) * 0.5f;
             float size = (float)r.NextDouble() * 0.7f + 0.5f;
-            int ttl = 100 + r.Next(50);
+            int ttl = 50 + r.Next(40);
 
             return new Particle(type, position, dir, speed, angle, angularVelocity, color, size, ttl);
         }
@@ -80,10 +80,11 @@ namespace EbaucheProjet
         public float size;
         public int TTL;
 
-        public Particle(int type, Vector2 position, Vector2 dir,float speed, float angle, float angularVelocity, Color color, float size, int ttl)
+        public Particle(int type, Vector2 position, Vector2 dir,float speed,
+            float angle, float angularVelocity, Color color, float size, int ttl)
         {
             this.type = type;
-            width = 5; height = 5;
+            if (type == 1) width = 5; height = 5;
 
             this.position = position;
             this.dir = dir;
@@ -95,11 +96,10 @@ namespace EbaucheProjet
             this.TTL = ttl;
         }
 
-        public void Update(GameTime gt)
+        public void Update()
         {
             TTL--;
             position += dir * speed;
-
             angle += angularVelocity;
         }
 
