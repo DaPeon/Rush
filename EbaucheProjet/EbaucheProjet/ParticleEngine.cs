@@ -19,7 +19,7 @@ namespace EbaucheProjet
 
         public int particlesPerSec;
 
-        public ParticleEngine(Vector2 pos, int type) : this(pos, type, 25) { }
+        public ParticleEngine(Vector2 pos, int type) : this(pos, type, 10) { }
 
         public ParticleEngine(Vector2 pos, int type, int particlesPerSec)
         {
@@ -63,16 +63,16 @@ namespace EbaucheProjet
         {
             Random r = new Random();
 
-            return new Particle(type, // Type
-                                pos, // Position
-                                Vector2.Normalize(new Vector2((float)(r.NextDouble()*2 - 1), (float)(r.NextDouble()*2 - 1))), // Direction
-                                (float)r.NextDouble()*3,
-                                MathHelper.Pi, // Angle
-                                0.1f * (float)(r.NextDouble() * 2 - 1), // Vitesse angulaire
-                                new Color((float)r.NextDouble(), (float)r.NextDouble(), (float)r.NextDouble()), // Couleur
-                                (float)r.NextDouble(), // Taille
-                                20 + r.Next(40) // Temps de vie
-                                );
+            Vector2 position = pos;
+            Vector2 dir = Vector2.Normalize(new Vector2((float)(r.NextDouble() * 2 - 1), (float)(r.NextDouble() * 2 - 1)));
+            float speed = (float)r.NextDouble() * 5;
+            float angle = 0f;
+            float angularVelocity = 0.1f * (float)(r.NextDouble() * 2 - 1);
+            Color color = new Color((float)r.NextDouble(), (float)r.NextDouble(), (float)r.NextDouble()) * 0.5f;
+            float size = (float)r.NextDouble();
+            int ttl = 20 + r.Next(40);
+
+            return new Particle(type, position, dir, speed, angle, angularVelocity, color, size, ttl);
         }
     }
 

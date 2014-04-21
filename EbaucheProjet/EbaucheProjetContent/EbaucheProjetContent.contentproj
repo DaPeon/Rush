@@ -139,6 +139,7 @@
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Compile Include="particles\circle.bmp">
       <Name>circle</Name>
