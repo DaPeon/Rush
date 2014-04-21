@@ -65,7 +65,8 @@ namespace EbaucheProjet
 
             return new Particle(type, // Type
                                 pos, // Position
-                                new Vector2((float)r.Next(6), (float)r.Next(6)), // Mouvement
+                                Vector2.Normalize(new Vector2((float)(r.NextDouble()*2 - 1), (float)(r.NextDouble()*2 - 1))), // Direction
+                                (float)r.NextDouble()*3,
                                 MathHelper.Pi, // Angle
                                 0.1f * (float)(r.NextDouble() * 2 - 1), // Vitesse angulaire
                                 new Color((float)r.NextDouble(), (float)r.NextDouble(), (float)r.NextDouble()), // Couleur
@@ -81,21 +82,23 @@ namespace EbaucheProjet
         public int width;
         public int height;
         public Vector2 position;
-        public Vector2 velocity;
+        public Vector2 dir;
+        public float speed;
         public float angle;
         public float angularVelocity;
         public Color color;
         public float size;
         public int TTL;
 
-        public Particle(int type, Vector2 position, Vector2 velocity,
+        public Particle(int type, Vector2 position, Vector2 dir,float speed,
             float angle, float angularVelocity, Color color, float size, int ttl)
         {
             this.type = type;
             if (type == 1) width = 5; height = 5;
 
             this.position = position;
-            this.velocity = velocity;
+            this.dir = dir;
+            this.speed = speed;
             this.angle = angle;
             this.angularVelocity = angularVelocity;
             this.color = color;
@@ -106,7 +109,7 @@ namespace EbaucheProjet
         public void Update()
         {
             TTL--;
-            position += velocity;
+            position += dir * speed;
             angle += angularVelocity;
         }
 
