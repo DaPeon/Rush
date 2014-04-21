@@ -21,7 +21,7 @@ namespace EbaucheProjet
 
         public Color color; // Couleur du calque
 
-        public Rectangle hitbox;
+        public List<Rectangle> hitbox;
 
         public int phase; // phase courante
         public int nbPhasesTotal; // nb de phases total
@@ -43,7 +43,8 @@ namespace EbaucheProjet
 
         public void SetHitbox()
         {
-            hitbox = new Rectangle((int)pos.X, (int)pos.Y, largeur, hauteur);
+            hitbox = new List<Rectangle>();
+            hitbox.Add(new Rectangle((int)pos.X, (int)pos.Y, largeur, hauteur));
         }
 
         public void LoadTextures(ContentManager cm, string textureName)
@@ -62,6 +63,8 @@ namespace EbaucheProjet
             this.pos = pos;
 
             this.color = color;
+
+            hitbox = new List<Rectangle>();
 
             phase = 0;
             this.nbPhases = nbPhases;

@@ -69,7 +69,7 @@ namespace EbaucheProjet
 
         public int type;
 
-        public Rectangle hitbox;
+        public List<Rectangle> hitbox;
 
 
         public void Draw(SpriteBatch sb)
@@ -85,9 +85,16 @@ namespace EbaucheProjet
             largeur = 64;
             hauteur = 64;
 
-            hitbox = new Rectangle(x * largeur, y * hauteur, largeur, hauteur);
+            hitbox = new List<Rectangle>();
 
             this.type = type;
+
+            SetHitbox();
+        }
+
+        public void SetHitbox()
+        {
+            if(type == 1) hitbox.Add(new Rectangle(x * largeur, y * hauteur, largeur, hauteur));
         }
     }
 

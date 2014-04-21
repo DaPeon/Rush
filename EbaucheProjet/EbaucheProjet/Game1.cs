@@ -135,7 +135,7 @@ namespace EbaucheProjet
             base.Draw(gameTime);
 
             FPS.UpdateFPS(gameTime.TotalGameTime.Milliseconds);
-            //FPS.ShowFPS();
+            FPS.ShowFPS();
         }
     }
 }

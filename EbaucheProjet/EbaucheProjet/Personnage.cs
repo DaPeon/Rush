@@ -26,7 +26,7 @@ namespace EbaucheProjet
 
         public new void SetHitbox()
         {
-            hitbox = new Rectangle((int)pos.X, (int)pos.Y, largeur , hauteur);            
+            hitbox.Add(new Rectangle((int)pos.X, (int)pos.Y, largeur , hauteur));            
         }
 
         public virtual void Mouv() // Fct mouvement
@@ -73,9 +73,11 @@ namespace EbaucheProjet
             pos.X += mov.X; // On bouge
             SetHitbox();
 
-            for (int i = 0; i < map.largeur; i++)
-                for (int j = 0; j < map.hauteur; j++)
-                    if (hitbox.Intersects(map.terrain[i, j].hitbox)) { intersect = true; } // Si ça nous fait rentrer dans le mur
+            foreach (Rectangle r in hitbox)
+                for (int i = 0; i < map.largeur; i++)
+                    for (int j = 0; j < map.hauteur; j++)
+                        foreach (Rectangle r2 in map.terrain[i,j].hitbox)
+                            if (r.Intersects(r2)) { intersect = true; } // Si ça nous fait rentrer dans le mur
 
             if (intersect == true) pos.X -= mov.X; // On annule
             SetHitbox();
@@ -84,9 +86,11 @@ namespace EbaucheProjet
             pos.Y += mov.Y; // On bouge
             SetHitbox();
 
-            for (int i = 0; i < map.largeur; i++)
-                for (int j = 0; j < map.hauteur; j++)
-                    if (hitbox.Intersects(map.terrain[i, j].hitbox)) { intersect = true; } // Si ça nous fait rentrer dans le mur
+            foreach (Rectangle r in hitbox)
+                for (int i = 0; i < map.largeur; i++)
+                    for (int j = 0; j < map.hauteur; j++)
+                        foreach (Rectangle r2 in map.terrain[i, j].hitbox)
+                            if (r.Intersects(r2)) { intersect = true; } // Si ça nous fait rentrer dans le mur
 
             if (intersect == true) pos.Y -= mov.Y; // On annule
             SetHitbox();
