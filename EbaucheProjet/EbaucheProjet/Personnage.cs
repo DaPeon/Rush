@@ -24,11 +24,6 @@ namespace EbaucheProjet
 
         public Vector2 dir; // Direction du personnage
 
-        public new void SetHitbox()
-        {
-            hitbox.Add(new Rectangle((int)pos.X, (int)pos.Y, largeur , hauteur));            
-        }
-
         public virtual void Mouv() // Fct mouvement
         {
             mov = Vector2.Zero;
@@ -83,6 +78,7 @@ namespace EbaucheProjet
             SetHitbox();
 
             // Et en Y
+            intersect = false;
             pos.Y += mov.Y; // On bouge
             SetHitbox();
 
