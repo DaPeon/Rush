@@ -35,9 +35,9 @@ namespace EbaucheProjet
                 mov += dir * speed;*/
         }
 
-        public new void Update(GameTime gt, Vector2 lookedPoint, Map map) // Update position
+        public new void Update(GameTime gt, Vector2 lookedPoint, Map map, Camera2D cam) // Update position
         {
-            base.Update(gt, lookedPoint, map);
+            base.Update(gt, lookedPoint, map, cam);
         }
 
         public PlayablePersonnage(string name, Vector2 pos, int nbPhases, Color couleur, Keys h, Keys g, Keys b, Keys d) : base(name, pos, nbPhases)

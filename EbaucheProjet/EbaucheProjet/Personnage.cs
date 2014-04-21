@@ -57,6 +57,13 @@ namespace EbaucheProjet
                 nbPhases = nbPhasesTotal;
         }*/
 
+
+        public void SetHitbox()
+        {
+            hitbox = new List<Rectangle>();
+            hitbox.Add(new Rectangle((int)pos.X, (int)pos.Y, 1, 1) );
+        }
+
         public void MouvWithHitBoxes(Map map)
         {
             bool intersect = false;
@@ -102,9 +109,10 @@ namespace EbaucheProjet
             // Fin des hitbox check
         }
 
-        public new void Update(GameTime gt, Vector2 lookedPoint, Map map) // Update position
+        public new void Update(GameTime gt, Vector2 lookedPoint, Map map, Camera2D cam) // Update position
         {
             Mouv();
+            
             MouvWithHitBoxes(map);
 
             mid = new Vector2(pos.X + (largeur / 2), pos.Y + (hauteur / 2)); // On definit le milieu du perso, vu qu'on a sa largeur/hauteur
@@ -122,9 +130,9 @@ namespace EbaucheProjet
             base.Update(gt);
         }
 
-        public new void Update(GameTime gt, Map map) // Update position
+        public new void Update(GameTime gt, Map map, Camera2D cam) // Update position
         {
-            this.Update(gt, pos, map);
+            this.Update(gt, pos, map, cam);
         }
         
         public new void LoadTextures(ContentManager cm, string textureName) // Load texture
@@ -137,8 +145,8 @@ namespace EbaucheProjet
 
         public Personnage(string name, Vector2 pos, int nbPhases) : base(name, pos, nbPhases, Color.White) // Constructeur (ne pas oublier de load la texture)
         {
-            speed = 5;
-            defaultSpeed = 5;
+            speed = 3;
+            defaultSpeed = 3;
 
             mov = new Vector2(0, 0);
         }

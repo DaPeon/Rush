@@ -70,7 +70,7 @@ namespace EbaucheProjet
 
 
             // TODO: use this.Content to load your game content here
-            jacket.LoadTextures(Content,"persoMapV2hitbox"); // Load la texture de jacket
+            jacket.LoadTextures(Content,"persoMapV2"); // Load la texture de jacket
             cursor.LoadTextures(Content,"CursorsW"); // Load les textures de la souris
 
             gameMap.Load(Content);
@@ -104,7 +104,7 @@ namespace EbaucheProjet
             if (Keyboard.GetState().IsKeyDown(Keys.LeftControl)) jacket.pos = cursor.globalMid - (new Vector2(jacket.largeur,jacket.hauteur))/2;
 
             camera.Update(gameTime);
-            jacket.Update(gameTime, cursor.globalMid, gameMap); // Jacket s'update
+            jacket.Update(gameTime, cursor.globalMid, gameMap, camera); // Jacket s'update
             cursor.Update(gameTime, camera);
             Options.GetOptions(graphics);
             
