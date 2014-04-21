@@ -115,6 +115,7 @@
     <Compile Include="FPS.cs" />
     <Compile Include="Geometric.cs" />
     <Compile Include="Options.cs" />
+    <Compile Include="ParticleEngine.cs" />
     <Compile Include="Personnage.cs" />
     <Compile Include="PlayablePersonnage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

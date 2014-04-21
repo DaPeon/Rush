@@ -27,6 +27,8 @@ namespace EbaucheProjet
         Map gameMap;
         FPSCounter FPS;
 
+        ParticleEngine particleEngine;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -52,6 +54,8 @@ namespace EbaucheProjet
             jacket = new PlayablePersonnage("Jacket", new Vector2(-100,-100), 8, Color.White, Keys.Z, Keys.Q, Keys.S, Keys.D); // New bonhomme (jacket)
             cursor = new Cursor();
 
+            particleEngine = new ParticleEngine(new Vector2(0, 0), 1);
+
             FPS = new FPSCounter();
 
             gameMap = new Map();
@@ -73,6 +77,7 @@ namespace EbaucheProjet
             jacket.LoadTextures(Content,"persoMapV2"); // Load la texture de jacket
             cursor.LoadTextures(Content,"CursorsW"); // Load les textures de la souris
 
+            ParticleTextures.LoadTextures(Content);
             gameMap.Load(Content);
 
         }
@@ -107,7 +112,8 @@ namespace EbaucheProjet
             jacket.Update(gameTime, cursor.globalMid, gameMap, camera); // Jacket s'update
             cursor.Update(gameTime, camera);
             Options.GetOptions(graphics);
-            
+            particleEngine.Update(jacket.mid);
+
             base.Update(gameTime);
         }
 
@@ -122,9 +128,10 @@ namespace EbaucheProjet
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, camera.transform);
                 gameMap.Draw(spriteBatch);
             spriteBatch.End();
-            
-            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, camera.transform);
+
+            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.NonPremultiplied, null, null, null, null, camera.transform);
                 jacket.Draw(spriteBatch); // Jacket se dessine
+                particleEngine.Draw(spriteBatch);
             spriteBatch.End();
 
             spriteBatch.Begin();
