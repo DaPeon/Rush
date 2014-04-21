@@ -16,6 +16,7 @@ namespace EbaucheProjet
         public Vector2 pos;
         public int type;
         public List<Particle> particles;
+        public Random r;
 
         public int particlesPerSec;
 
@@ -27,6 +28,7 @@ namespace EbaucheProjet
             this.type = type;
             this.particlesPerSec = particlesPerSec;
 
+            r = new Random();
             particles = new List<Particle>();
         }
 
@@ -51,16 +53,14 @@ namespace EbaucheProjet
 
         public Particle NewParticle()
         {
-            Random r = new Random();
-
             Vector2 position = pos;
             Vector2 dir = Vector2.Normalize(new Vector2((float)(r.NextDouble() * 2 - 1), (float)(r.NextDouble() * 2 - 1)));
             float speed = (float)r.NextDouble() * 3f + 0.2f;
             float angle = 0f;
             float angularVelocity = 0.1f * (float)(r.NextDouble() * 2 - 1);
-            Color color = new Color((float)r.NextDouble(), (float)r.NextDouble(), (float)r.NextDouble()) * 0.5f;
+            Color color = new Color((float)r.NextDouble() * 255, (float)r.NextDouble() * 255, (float)r.NextDouble() * 255) * 0.5f;
             float size = (float)r.NextDouble() * 0.7f + 0.5f;
-            int ttl = 50 + r.Next(40);
+            int ttl = 100 + r.Next(50);
 
             return new Particle(type, position, dir, speed, angle, angularVelocity, color, size, ttl);
         }
@@ -80,11 +80,10 @@ namespace EbaucheProjet
         public float size;
         public int TTL;
 
-        public Particle(int type, Vector2 position, Vector2 dir,float speed,
-            float angle, float angularVelocity, Color color, float size, int ttl)
+        public Particle(int type, Vector2 position, Vector2 dir,float speed, float angle, float angularVelocity, Color color, float size, int ttl)
         {
             this.type = type;
-            if (type == 1) width = 5; height = 5;
+            width = 5; height = 5;
 
             this.position = position;
             this.dir = dir;
@@ -100,6 +99,7 @@ namespace EbaucheProjet
         {
             TTL--;
             position += dir * speed;
+
             angle += angularVelocity;
         }
 
