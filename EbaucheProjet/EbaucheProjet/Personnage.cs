@@ -14,6 +14,9 @@ namespace EbaucheProjet
 {
     public class Personnage : Sprite
     {
+
+        #region Vars
+
         public int speed; // Vitesse en pixel
 
         public int defaultSpeed; // Vitesse de base
@@ -23,6 +26,9 @@ namespace EbaucheProjet
         public Vector2 mid; // Centre du personnage ( sert d'axe pour la rotation)
 
         public Vector2 dir; // Direction du personnage
+
+        #endregion Vars
+
 
         public virtual void Mouv() // Fct mouvement
         {

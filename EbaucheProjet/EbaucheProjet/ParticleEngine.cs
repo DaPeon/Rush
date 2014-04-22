@@ -72,6 +72,7 @@ namespace EbaucheProjet
 
     public class Particle
     {
+        #region Vars
         public int type;
         public int width;
         public int height;
@@ -83,6 +84,7 @@ namespace EbaucheProjet
         public Color color;
         public float size;
         public int TTL;
+        #endregion Vars
 
         public Particle(int type, Vector2 position, Vector2 dir,float speed, float angle, float angularVelocity, Color color, float size, int ttl)
         {

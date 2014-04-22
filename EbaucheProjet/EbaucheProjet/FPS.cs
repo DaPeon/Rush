@@ -7,11 +7,16 @@ namespace EbaucheProjet
 {
     public class FPSCounter
     {
+        #region Vars
+
         public double lastFps;
         public double fps;
         public int drawInterval;
         public int lastDraw;
         public int globalTime;
+        
+        #endregion Vars
+
 
         public FPSCounter()
         {

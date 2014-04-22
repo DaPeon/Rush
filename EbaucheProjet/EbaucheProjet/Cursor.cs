@@ -13,6 +13,8 @@ namespace EbaucheProjet
 {
     class Cursor // Curseur cool
     {
+        #region Vars
+
         public Texture2D texture; // texture
 
         public Vector2 pos; // point haut gauche dans la fenetre
@@ -34,6 +36,9 @@ namespace EbaucheProjet
         public int hauteur;
         
         public Vector2 mid;
+        
+        #endregion Vars
+
 
         public void Update(GameTime gt, Camera2D c)
         {

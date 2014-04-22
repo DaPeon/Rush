@@ -13,10 +13,16 @@ namespace EbaucheProjet
 {
     public class PlayablePersonnage : Personnage
     {
+
+        #region Vars
+
         public Keys h;
         public Keys g;
         public Keys b;
         public Keys d;
+        
+        #endregion Vars
+
 
         public override void Mouv() // Fct mouvement
         {

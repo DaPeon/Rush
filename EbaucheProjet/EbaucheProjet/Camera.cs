@@ -75,6 +75,8 @@ namespace EbaucheProjet
 
     public class Camera2D
     {
+        #region Vars
+
         public Vector2 pos;
         public Vector2 mov;
 
@@ -91,6 +93,8 @@ namespace EbaucheProjet
         public float speed;
 
         public Matrix transform;
+
+        #endregion Vars
 
         public Camera2D(int width, int height) 
         {

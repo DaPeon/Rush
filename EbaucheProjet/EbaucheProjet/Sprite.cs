@@ -13,6 +13,9 @@ namespace EbaucheProjet
 {
     public abstract class Sprite
     {
+
+        #region Vars
+
         public string name; // nom du sprite
 
         public Texture2D texture; // texture
@@ -34,6 +37,9 @@ namespace EbaucheProjet
 
         public int largeur;
         public int hauteur;
+
+        #endregion Vars
+
 
         public void Update(GameTime gt) // Update position
         {

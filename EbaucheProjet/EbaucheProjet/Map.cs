@@ -102,6 +102,8 @@ namespace EbaucheProjet
 
     public static class Textures
     {
+        #region Vars
+
         public static Texture2D ground;             // 0
         public static Texture2D full;               // 1
         public static Texture2D wallV;              // 2
@@ -111,6 +113,9 @@ namespace EbaucheProjet
         public static Texture2D downleftcorner;     // 5
         public static Texture2D downrightcorner;    // 6
         public static Texture2D uprightcorner;      // 7
+
+        #endregion Vars
+
 
         public static Texture2D GetTexture(int n)
         {
