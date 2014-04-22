@@ -18,15 +18,19 @@ namespace EbaucheProjet
         public List<Particle> particles;
         public Random r;
 
+        public bool on;
+
         public int particlesPerSec;
 
-        public ParticleEngine(Vector2 pos, int type) : this(pos, type, 10) { }
+        public ParticleEngine(Vector2 pos, int type) : this(pos, type, 10, true) { }
 
-        public ParticleEngine(Vector2 pos, int type, int particlesPerSec)
+        public ParticleEngine(Vector2 pos, int type, int particlesPerSec, bool on)
         {
             this.pos = pos;
             this.type = type;
             this.particlesPerSec = particlesPerSec;
+
+            this.on = on;
 
             r = new Random();
             particles = new List<Particle>();
@@ -37,7 +41,7 @@ namespace EbaucheProjet
         {
             this.pos = pos;
 
-            for (int i = 0; i < particlesPerSec; i++) particles.Add(NewParticle());
+            if(on) for (int i = 0; i < particlesPerSec; i++) particles.Add(NewParticle());
 
             for (int i = 0; i < particles.Count; i++)
             {

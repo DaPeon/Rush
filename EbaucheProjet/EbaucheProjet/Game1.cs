@@ -112,6 +112,7 @@ namespace EbaucheProjet
             camera.focus = ((3 * jacket.mid + cursor.globalMid) / 4);
             if (Keyboard.GetState().IsKeyDown(Keys.LeftShift)) camera.focus = cursor.globalMid;
             if (Keyboard.GetState().IsKeyDown(Keys.LeftControl)) jacket.pos = cursor.globalMid - (new Vector2(jacket.largeur,jacket.hauteur))/2;
+            if (Mouse.GetState().MiddleButton == ButtonState.Pressed) particleEngine.on = (particleEngine.on) ? false : true;
 
             camera.Update(gameTime);
             jacket.Update(gameTime, cursor.globalMid, gameMap, camera); // Jacket s'update
