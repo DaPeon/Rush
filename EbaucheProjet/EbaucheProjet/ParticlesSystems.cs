@@ -30,7 +30,7 @@ namespace EbaucheProjet
         public static void LoadTextures(ContentManager cm)
         {
             air = cm.Load<Texture2D>("particles/air");
-            circle = cm.Load<Texture2D>("particles/circle");//("particles/circle");
+            circle = cm.Load<Texture2D>("particles/circle");
             star = cm.Load<Texture2D>("particles/star");
         }
     }
