@@ -59,7 +59,7 @@ namespace EbaucheProjet
             jacket = new PlayablePersonnage("Jacket", new Vector2(-100,-100), 8, Color.White, Keys.Z, Keys.Q, Keys.S, Keys.D); // New bonhomme (jacket)
             cursor = new Cursor();
 
-            particleEngine = new ParticleEngine(new Vector2(0, 0), 2);
+            particleEngine = new ParticleEngine(new Vector2(0, 0), 0);
 
             FPS = new FPSCounter();
 
@@ -103,6 +103,8 @@ namespace EbaucheProjet
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            if (Keyboard.GetState().IsKeyDown(Keys.P)) return;
+
             // Allows the game to exit
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 this.Exit();
