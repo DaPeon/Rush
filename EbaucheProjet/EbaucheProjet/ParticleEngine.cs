@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace EbaucheProjet
 {
-    public class ParticleEngine
+    public class ParticleEngine<T>
     {
         #region Vars
 
@@ -37,7 +37,7 @@ namespace EbaucheProjet
             this.on = on;
 
             r = new Random();
-            particles = new List<Particle>();
+            particles = new List<T>();
         }
 
         public void Update() { Update(pos); }
@@ -56,7 +56,7 @@ namespace EbaucheProjet
 
         public void Draw(SpriteBatch sb)
         {
-            foreach (Particle p in particles) p.Draw(sb);
+            foreach (T p in particles) p.Draw(sb);
         }
 
         public Particle NewParticle()
@@ -70,7 +70,7 @@ namespace EbaucheProjet
             float size = (float)r.NextDouble() * 0.7f + 0.3f;
             int ttl = 100 + r.Next(50);
 
-            return new Particle(type, position, dir, speed, angle, angularVelocity, color, size, ttl);
+            return new T(type, position, dir, speed, angle, angularVelocity, color, size, ttl);
         }
     }
 }
