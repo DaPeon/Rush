@@ -27,7 +27,7 @@ namespace EbaucheProjet
         Map gameMap;
         FPSCounter FPS;
 
-        T particleEngine;
+        ParticleEngine particleEngine;
 
         public Game1()
         {
@@ -59,7 +59,7 @@ namespace EbaucheProjet
             jacket = new PlayablePersonnage("Jacket", new Vector2(-100,-100), 8, Color.White, Keys.Z, Keys.Q, Keys.S, Keys.D); // New bonhomme (jacket)
             cursor = new Cursor();
 
-            particleEngine = new ParticleEngine(new Vector2(0, 0), 2); particleEngine.on = false;
+            particleEngine = new ParticleEngine(new Vector2(0, 0), 0);
 
             FPS = new FPSCounter();
 
