@@ -103,24 +103,29 @@ namespace EbaucheProjet
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.P)) return;
+            #region Touches
 
-            // Allows the game to exit
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
-                this.Exit();
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape)) this.Exit(); // Exit
 
-            // TODO: Add your update logic here
+            if (Keyboard.GetState().IsKeyDown(Keys.P)) return; // Pause
 
             camera.focus = ((3 * jacket.mid + cursor.globalMid) / 4);
             if (Keyboard.GetState().IsKeyDown(Keys.LeftShift)) camera.focus = cursor.globalMid;
-            if (Keyboard.GetState().IsKeyDown(Keys.LeftControl)) jacket.pos = cursor.globalMid - (new Vector2(jacket.largeur,jacket.hauteur))/2;
-            if (Mouse.GetState().MiddleButton == ButtonState.Pressed) particleEngine.on = (particleEngine.on) ? false : true;
+            if (Keyboard.GetState().IsKeyDown(Keys.LeftControl)) jacket.pos = cursor.globalMid - (new Vector2(jacket.largeur, jacket.hauteur)) / 2;
+            if (Mouse.GetState().MiddleButton == ButtonState.Pressed) particleEngine.on = (particleEngine.on) ? false : true; // Pause de l'émetteur
+
+            if (Keyboard.GetState().IsKeyDown(Keys.D1)) particleEngine.type = 0;
+            if (Keyboard.GetState().IsKeyDown(Keys.D2)) particleEngine.type = 1;
+            if (Keyboard.GetState().IsKeyDown(Keys.D3)) particleEngine.type = 2;
+            if (Keyboard.GetState().IsKeyDown(Keys.D4)) particleEngine.type = 3;
+
+            #endregion Touches
 
             camera.Update(gameTime);
             jacket.Update(gameTime, cursor.globalMid, gameMap, camera); // Jacket s'update
             cursor.Update(gameTime, camera);
             Options.GetOptions(graphics);
-            particleEngine.Update(jacket.mid);
+            particleEngine.Update(gameMap, jacket.mid);
 
             base.Update(gameTime);
         }

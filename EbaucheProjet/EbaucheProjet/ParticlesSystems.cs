@@ -15,6 +15,7 @@ namespace EbaucheProjet
         public static Texture2D air; // 0
         public static Texture2D circle; // 1
         public static Texture2D star; // 2
+        public static Texture2D dot; // 3
 
         public static Texture2D GetTexture(int n)
         {
@@ -23,6 +24,7 @@ namespace EbaucheProjet
                 case 0: return air; break;
                 case 1: return circle; break;
                 case 2: return star; break;
+                case 3: return dot; break;
                 default: return air; break;
             }
         }
@@ -32,6 +34,7 @@ namespace EbaucheProjet
             air = cm.Load<Texture2D>("particles/air");
             circle = cm.Load<Texture2D>("particles/circle");
             star = cm.Load<Texture2D>("particles/star");
+            dot = cm.Load<Texture2D>("particles/dot");
         }
     }
 
@@ -69,10 +72,15 @@ namespace EbaucheProjet
             this.TTL = ttl;
         }
 
-        public void Update()
+        public void Update(Map map)
         {
             TTL--;
             if (TTL < 0) Die();
+            for (int i = 0; i < map.largeur; i++)
+                for (int j = 0; j < map.hauteur; j++)
+                    foreach (Rectangle r in map.terrain[i, j].hitbox)
+                        if (r.Contains(new Point((int)position.X, (int)position.Y))) Die();
+
 
             position += dir * speed;
 
@@ -121,9 +129,9 @@ namespace EbaucheProjet
             this.dissapearOnPoint = dissapearOnPoint;
         }
 
-        public void Update()
+        public void Update(Map map)
         {
-            base.Update();
+            base.Update(map);
 
             if (position == gravityPoint && dissapearOnPoint) Die();
 

@@ -26,7 +26,7 @@ namespace EbaucheProjet
 
         #endregion Vars
 
-        public ParticleEngine(Vector2 pos, int type) : this(pos, type, 100, true) { }
+        public ParticleEngine(Vector2 pos, int type) : this(pos, type, 25, true) { }
 
         public ParticleEngine(Vector2 pos, int type, int particlesPerSec, bool on)
         {
@@ -40,8 +40,8 @@ namespace EbaucheProjet
             particles = new List<Particle>();
         }
 
-        public void Update() { Update(pos); }
-        public void Update(Vector2 pos)
+        public void Update(Map map) { Update(map, pos); }
+        public void Update(Map map, Vector2 pos)
         {
             this.pos = pos;
 
@@ -49,7 +49,7 @@ namespace EbaucheProjet
 
             for (int i = 0; i < particles.Count; i++)
             {
-                particles[i].Update();
+                particles[i].Update(map);
                 if (!particles[i].alive) particles.Remove(particles[i]);
             }
         }
@@ -63,12 +63,12 @@ namespace EbaucheProjet
         {
             Vector2 position = pos;
             Vector2 dir = Vector2.Normalize(new Vector2((float)(r.NextDouble() * 2 - 1), (float)(r.NextDouble() * 2 - 1)));
-            float speed = (float)r.NextDouble() * 0.2f + 1.2f;
+            float speed = (float)r.NextDouble() * 0.5f + 1.2f;
             float angle = 0f;
             float angularVelocity = 0.1f * (float)(r.NextDouble() * 2 - 1);
             Color color = new Color((float)r.NextDouble(), (float)r.NextDouble(), (float)r.NextDouble());
             float size = (float)r.NextDouble() * 0.7f + 0.3f;
-            int ttl = 100 + r.Next(50);
+            int ttl = 50 + r.Next(50);
 
             return new Particle(type, position, dir, speed, angle, angularVelocity, color, size, ttl);
         }
