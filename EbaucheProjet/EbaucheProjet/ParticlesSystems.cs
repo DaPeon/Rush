@@ -14,7 +14,7 @@ namespace EbaucheProjet
     {
         public static Texture2D air; // 0
         public static Texture2D circle; // 1
-        public static Texture2D blood; // 2
+        public static Texture2D star; // 2
 
         public static Texture2D GetTexture(int n)
         {
@@ -22,7 +22,7 @@ namespace EbaucheProjet
             {
                 case 0: return air; break;
                 case 1: return circle; break;
-                case 2: return blood; break;
+                case 2: return star; break;
                 default: return air; break;
             }
         }
@@ -30,8 +30,8 @@ namespace EbaucheProjet
         public static void LoadTextures(ContentManager cm)
         {
             air = cm.Load<Texture2D>("particles/air");
-            circle = cm.Load<Texture2D>("particles/circle");
-            blood = cm.Load<Texture2D>("particles/blood");
+            circle = cm.Load<Texture2D>("particles/circle");//("particles/circle");
+            star = cm.Load<Texture2D>("particles/star");
         }
     }
 
@@ -56,7 +56,8 @@ namespace EbaucheProjet
         {
             alive = true;
             this.type = type;
-            width = 5; height = 5;
+            width = ParticleTextures.GetTexture(type).Height;
+            height = ParticleTextures.GetTexture(type).Width;
 
             this.position = position;
             this.dir = dir;

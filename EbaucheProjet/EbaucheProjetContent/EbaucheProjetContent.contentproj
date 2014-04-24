@@ -147,15 +147,15 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="particles\blood.bmp">
-      <Name>blood</Name>
+    <Compile Include="particles\air.bmp">
+      <Name>air</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="particles\air.bmp">
-      <Name>air</Name>
+    <Compile Include="particles\star.bmp">
+      <Name>star</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

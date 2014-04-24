@@ -26,7 +26,7 @@ namespace EbaucheProjet
 
         #endregion Vars
 
-        public ParticleEngine(Vector2 pos, int type) : this(pos, type, 10, true) { }
+        public ParticleEngine(Vector2 pos, int type) : this(pos, type, 100, true) { }
 
         public ParticleEngine(Vector2 pos, int type, int particlesPerSec, bool on)
         {
@@ -67,15 +67,10 @@ namespace EbaucheProjet
             float angle = 0f;
             float angularVelocity = 0.1f * (float)(r.NextDouble() * 2 - 1);
             Color color = new Color((float)r.NextDouble(), (float)r.NextDouble(), (float)r.NextDouble());
-            float size = (float)r.NextDouble() * 0.7f + 0.5f;
+            float size = (float)r.NextDouble() * 0.7f + 0.3f;
             int ttl = 100 + r.Next(50);
 
             return new Particle(type, position, dir, speed, angle, angularVelocity, color, size, ttl);
         }
-    }
-
-    public class GravityParticleEngine
-    {
-        
     }
 }
