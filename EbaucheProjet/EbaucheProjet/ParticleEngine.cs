@@ -73,25 +73,4 @@ namespace EbaucheProjet
             return new Particle(type, position, dir, speed, angle, angularVelocity, color, size, ttl);
         }
     }
-
-    public class BulletParticles : ParticleEngine
-    {
-        public BulletParticles(Vector2 pos, int type, int particlesPerSec, bool on)
-            : base(pos, type, particlesPerSec, on)
-        { }
-
-        public override Particle NewParticle()
-        {
-            Vector2 position = pos;
-            Vector2 dir = Vector2.Normalize(new Vector2((float)(r.NextDouble() * 2 - 1), (float)(r.NextDouble() * 2 - 1)));
-            float speed = (float)r.NextDouble() * 1f + 0f;
-            float angle = 0f;
-            float angularVelocity = 0.1f * (float)(r.NextDouble() * 2 - 1);
-            Color color = new Color(0 ,0 , (float)r.NextDouble() * 0.5f + 0.5f);
-            float size = (float)r.NextDouble() * 0.7f + 0.3f;
-            int ttl = 10 + r.Next(10);
-
-            return new Particle(type, position, dir, speed, angle, angularVelocity, color, size, ttl);
-        }
-    }
 }

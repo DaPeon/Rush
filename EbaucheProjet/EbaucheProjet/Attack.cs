@@ -15,10 +15,10 @@ namespace EbaucheProjet
     {
         ParticleEngine pEngine;
 
-        public Bullet(int type, Vector2 position, Vector2 dir, float speed, float size, Color color ,int TTL, int pType, int pPerUp)
+        public Bullet(int type, Vector2 position, Vector2 dir, float speed, float size, Color color ,int TTL)
             : base(type, position, dir, speed, 0f, 0f, color, size, TTL)
         {
-            pEngine = new BulletParticles(position, pType, pPerUp, true);
+            pEngine = new LanceBouleParticle(position, true);
         }
 
 
@@ -46,10 +46,7 @@ namespace EbaucheProjet
         public Color color;
         public float size;
 
-        public int pType;
-        public int pPerUp;
-
-        public BulletGenerator(int type, float speed, Color color, float size, int TTL, int pType, int pPerUp)
+        public BulletGenerator(int type, float speed, Color color, float size, int TTL)
         {
             pos = Vector2.Zero;
             bullets = new List<Bullet>();
@@ -60,8 +57,6 @@ namespace EbaucheProjet
             this.type = type;
             this.color = color;
             this.size = size;
-            this.pType = pType;
-            this.pPerUp = pPerUp;
         }
 
         public void Update(Vector2 pos, Vector2 dir, Map map)
@@ -88,7 +83,7 @@ namespace EbaucheProjet
 
         public Bullet NewBullet(Vector2 dir)
         {
-            return new Bullet(type ,pos, dir, speed, size, color, TTL, pType, pPerUp);
+            return new Bullet(type ,pos, dir, speed, size, color, TTL);
         }
     }
 
@@ -105,26 +100,20 @@ namespace EbaucheProjet
         public int bulletsInterval;
         public int lastBullet;
 
-        public int pType;
-        public int pPerUp;
 
-
-        public Weapon(int type, float speed, Color color, int bulletsInterval, float size, int TTL, int pType, int pPerUp)
+        public Weapon(int type, float speed, Color color, int bulletsInterval, float size, int TTL)
         {
             this.speed = speed;
             this.type = type;
             this.color = color;
             this.size = size;
             this.TTL = TTL;
-            
-            this.pType = pType;
-            this.pPerUp = pPerUp;
 
             this.bulletsInterval = bulletsInterval;
             shoot = false;
             lastBullet = 0;
 
-            bg = new BulletGenerator(type, speed, color,size, TTL, pType, pPerUp);
+            bg = new BulletGenerator(type, speed, color,size, TTL);
         }
 
         public void Update(GameTime gt, Vector2 pos, Vector2 dir, Map map)
@@ -152,10 +141,31 @@ namespace EbaucheProjet
 
     }
 
-    // Weapon : BulletType, BulletSpeed, BulletColor, 1000/BulletsPerSecond, BulletSize, BulletLife, ParticleType, ParticlePerUpdate
+    // Weapon : BulletType, BulletSpeed, BulletColor, 1000/BulletsPerSecond, BulletSize, BulletLife
 
     public class LanceBoule : Weapon
     {
-        public LanceBoule() : base(4, 50, Color.Blue, 1000/10, 1.5f, 100, 1, 10) { }
+        public LanceBoule() : base(4, 10, Color.Red, 1000/2, 1.5f, 100) { }
+    }
+
+    public class LanceBouleParticle : ParticleEngine
+    {
+        public LanceBouleParticle(Vector2 pos, bool on)
+            : base(pos, 1, 25, on)
+        { }
+
+        public override Particle NewParticle()
+        {
+            Vector2 position = pos;
+            Vector2 dir = Vector2.Normalize(new Vector2((float)(r.NextDouble() * 2 - 1), (float)(r.NextDouble() * 2 - 1)));
+            float speed = (float)r.NextDouble() * 4f + 0f;
+            float angle = 0f;
+            float angularVelocity = 0.1f * (float)(r.NextDouble() * 2 - 1);
+            Color color = new Color((float)r.NextDouble() * 0.5f + 0.5f, 0, 0);
+            float size = (float)r.NextDouble() * 0.7f + 0.3f;
+            int ttl = 2 + r.Next(4);
+
+            return new Particle(type, position, dir, speed, angle, angularVelocity, color, size, ttl);
+        }
     }
 }
