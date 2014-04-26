@@ -129,6 +129,13 @@ namespace EbaucheProjet
             this.dissapearOnPoint = dissapearOnPoint;
         }
 
+        public void Update(Map map, Vector2 point)
+        {
+            gravityPoint = point;
+
+            this.Update(map);
+        }
+
         public void Update(Map map)
         {
             base.Update(map);
