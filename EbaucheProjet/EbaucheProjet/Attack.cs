@@ -172,7 +172,7 @@ namespace EbaucheProjet
 
     public class LanceBoule : Weapon
     {
-        public LanceBoule() : base(4, 10, Color.Red, 1000 / 2, 1.5f, 100) { }
+        public LanceBoule() : base(4, 10, Color.Red, 1000 / 2, 1.5f, 500) { }
     }
 
     public class LanceBouleParticle : ParticleEngine
