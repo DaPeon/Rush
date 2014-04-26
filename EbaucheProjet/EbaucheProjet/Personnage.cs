@@ -27,8 +27,6 @@ namespace EbaucheProjet
 
         public Vector2 dir; // Direction du personnage
 
-        
-
         #endregion Vars
 
 
@@ -134,7 +132,7 @@ namespace EbaucheProjet
                 nbPhases = 0;
             else
                 nbPhases = nbPhasesTotal;
-            
+
             base.Update(gt);
         }
 

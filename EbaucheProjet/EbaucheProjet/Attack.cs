@@ -13,31 +13,32 @@ namespace EbaucheProjet
 {
     public class Bullet : Particle
     {
-        public Bullet(Vector2 position, Vector2 dir, float speed)
-            : base(2, position, dir, speed, 0f, 0f, Color.White, 1f, 1000)
+        public Bullet(int type, Vector2 position, Vector2 dir, float speed)
+            : base(type, position, dir, speed, 0f, 0f, Color.White, 1f, 1000)
         { }
     }
 
     public class BulletGenerator
     {
-        public bool shoot;
+        public bool add;
         public Vector2 pos;
         List<Bullet> bullets;
         public float speed;
+        public int type;
 
-        public BulletGenerator()
+        public BulletGenerator(int type, float speed)
         {
-            shoot = false;
             pos = Vector2.Zero;
             bullets = new List<Bullet>();
 
-            speed = 100;
+            this.speed = speed;
+            this.type = type;
         }
-
-        public void Shoot() { shoot = true; }
 
         public void Update(Vector2 pos, Vector2 dir, Map map)
         {
+            this.pos = pos;
+
             foreach (Bullet b in bullets)
             {
                 b.Update(map);
@@ -45,9 +46,8 @@ namespace EbaucheProjet
                 if (b.TTL <= 0) bullets.Remove(b);
             }
 
-            if (shoot)
+            if (add)
             {
-                shoot = false;
                 bullets.Add(NewBullet(dir));
             }
         }
@@ -62,7 +62,43 @@ namespace EbaucheProjet
 
         public Bullet NewBullet(Vector2 dir)
         {
-            return new Bullet(pos, dir, speed);
+            return new Bullet(type ,pos, dir, speed);
         }
+    }
+
+    public class Weapon
+    {
+        public BulletGenerator bg;
+        public float speed;
+        public int type;
+        public bool shoot;
+
+        public Weapon(int type, float speed)
+        {
+            this.speed = speed;
+            this.type = type;
+            shoot = false;
+
+            bg = new BulletGenerator(type,speed);
+        }
+
+        public void Update(Vector2 pos, Vector2 dir, Map map)
+        {
+            if (shoot)
+            {
+                bg.add = true;
+                shoot = false;
+            }
+
+            bg.Update(pos, dir, map);
+        }
+
+        public void Draw(SpriteBatch sb)
+        {
+            bg.Draw(sb);
+        }
+
+        public void Shoot() { shoot = true; }
+
     }
 }
