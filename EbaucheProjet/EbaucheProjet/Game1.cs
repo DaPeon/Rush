@@ -112,8 +112,9 @@ namespace EbaucheProjet
             camera.focus = ((3 * jacket.mid + cursor.globalMid) / 4);
             if (Keyboard.GetState().IsKeyDown(Keys.LeftShift)) camera.focus = cursor.globalMid;
             if (Keyboard.GetState().IsKeyDown(Keys.LeftControl)) jacket.pos = cursor.globalMid - (new Vector2(jacket.largeur, jacket.hauteur)) / 2;
-            if (Mouse.GetState().MiddleButton == ButtonState.Pressed) particleEngine.on = (particleEngine.on) ? false : true; // Pause de l'émetteur
 
+            if (Mouse.GetState().MiddleButton == ButtonState.Pressed) particleEngine.on = true;
+            if (Keyboard.GetState().IsKeyDown(Keys.D0)) particleEngine.on = false;
             if (Keyboard.GetState().IsKeyDown(Keys.D1)) particleEngine.type = 0;
             if (Keyboard.GetState().IsKeyDown(Keys.D2)) particleEngine.type = 1;
             if (Keyboard.GetState().IsKeyDown(Keys.D3)) particleEngine.type = 2;

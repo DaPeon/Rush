@@ -26,7 +26,7 @@ namespace EbaucheProjet
 
         #endregion Vars
 
-        public ParticleEngine(Vector2 pos, int type) : this(pos, type, 10, true) { }
+        public ParticleEngine(Vector2 pos, int type) : this(pos, type, 10, false) { }
 
         public ParticleEngine(Vector2 pos, int type, int particlesPerSec, bool on)
         {
