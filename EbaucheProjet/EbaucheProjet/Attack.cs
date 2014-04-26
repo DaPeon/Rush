@@ -14,8 +14,9 @@ namespace EbaucheProjet
     public class Bullet : Particle
     {
         ParticleEngine pEngine;
+        
 
-        public Bullet(int type, Vector2 position, Vector2 dir, float speed, float size, Color color ,int TTL)
+        public Bullet(int type, Vector2 position, Vector2 dir, float speed, float size, Color color, int TTL)
             : base(type, position, dir, speed, 0f, 0f, color, size, TTL)
         {
             pEngine = new LanceBouleParticle(position, true);
@@ -67,7 +68,16 @@ namespace EbaucheProjet
             {
                 bullets[i].Update(map);
 
-                if (!bullets[i].alive) bullets.Remove(bullets[i]);
+
+                if (bullets[i].impact)
+                {
+                    
+                }
+
+                if (!bullets[i].alive)
+                {
+                    bullets.Remove(bullets[i]);
+                }
             }
 
             if (add)
@@ -158,7 +168,7 @@ namespace EbaucheProjet
         {
             Vector2 position = pos;
             Vector2 dir = Vector2.Normalize(new Vector2((float)(r.NextDouble() * 2 - 1), (float)(r.NextDouble() * 2 - 1)));
-            float speed = (float)r.NextDouble() * 4f + 0f;
+            float speed = (float)r.NextDouble() * 8f + 0f;
             float angle = 0f;
             float angularVelocity = 0.1f * (float)(r.NextDouble() * 2 - 1);
             Color color = new Color((float)r.NextDouble() * 0.5f + 0.5f, 0, 0);

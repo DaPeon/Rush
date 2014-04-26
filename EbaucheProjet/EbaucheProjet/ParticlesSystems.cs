@@ -47,6 +47,9 @@ namespace EbaucheProjet
         #region Vars
 
         public bool alive;
+        public bool impact;
+        public bool killingImpact;
+
         public int type;
         public int width;
         public int height;
@@ -63,7 +66,9 @@ namespace EbaucheProjet
 
         public Particle(int type, Vector2 position, Vector2 dir, float speed, float angle, float angularVelocity, Color color, float size, int ttl)
         {
-            alive = true;
+            this.alive = true;
+            this.impact = false;
+            
             this.type = type;
             width = ParticleTextures.GetTexture(type).Height;
             height = ParticleTextures.GetTexture(type).Width;
@@ -76,6 +81,8 @@ namespace EbaucheProjet
             this.color = color;
             this.size = size;
             this.TTL = ttl;
+
+            killingImpact = true;
         }
 
         public void Update(Map map)
@@ -86,7 +93,7 @@ namespace EbaucheProjet
             for (int i = 0; i < map.largeur; i++)
                 for (int j = 0; j < map.hauteur; j++)
                     foreach (Rectangle r in map.terrain[i, j].hitbox)
-                        if (r.Contains(new Point((int)position.X, (int)position.Y))) Die();
+                        if (r.Contains(new Point((int)position.X, (int)position.Y))) Impact();
 
 
             position += dir * speed;
@@ -100,9 +107,15 @@ namespace EbaucheProjet
         }
 
         public void Die() { alive = false; }
+
+        public void Impact()
+        { 
+            impact = true;
+            if (killingImpact) Die();
+        }
     }
 
-    // ADD PARTICLES SYSTEMS
+    // Particles Ideas
     //
     // Blood (sweat & tears)
     // Fire
