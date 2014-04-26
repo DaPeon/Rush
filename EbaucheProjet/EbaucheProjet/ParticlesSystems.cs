@@ -17,6 +17,7 @@ namespace EbaucheProjet
         public static Texture2D circle; // 1
         public static Texture2D star; // 2
         public static Texture2D dot; // 3
+        public static Texture2D bigCircle; // 4
 
         public static Texture2D GetTexture(int n)
         {
@@ -26,6 +27,7 @@ namespace EbaucheProjet
                 case 1: return circle; break;
                 case 2: return star; break;
                 case 3: return dot; break;
+                case 4: return bigCircle; break;
                 default: return air; break;
             }
         }
@@ -36,12 +38,14 @@ namespace EbaucheProjet
             circle = cm.Load<Texture2D>("particles/circle");
             star = cm.Load<Texture2D>("particles/star");
             dot = cm.Load<Texture2D>("particles/dot");
+            bigCircle = cm.Load<Texture2D>("particles/bigCircle");
         }
     }
 
     public class Particle
     {
         #region Vars
+
         public bool alive;
         public int type;
         public int width;
@@ -54,6 +58,7 @@ namespace EbaucheProjet
         public Color color;
         public float size;
         public int TTL;
+
         #endregion Vars
 
         public Particle(int type, Vector2 position, Vector2 dir, float speed, float angle, float angularVelocity, Color color, float size, int ttl)

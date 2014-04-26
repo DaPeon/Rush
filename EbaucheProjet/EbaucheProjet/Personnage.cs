@@ -133,7 +133,7 @@ namespace EbaucheProjet
 
             GetActions();
             if (shoot) weapon.Shoot();
-            weapon.Update(mid, dir, map);
+            weapon.Update(gt ,mid, dir, map);
 
             if (mov == Vector2.Zero)
                 nbPhases = 0;
