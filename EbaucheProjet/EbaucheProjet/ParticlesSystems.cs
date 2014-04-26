@@ -89,14 +89,37 @@ namespace EbaucheProjet
         {
             TTL--;
             if (TTL < 0) Die();
-
-            for (int i = 0; i < map.largeur; i++)
-                for (int j = 0; j < map.hauteur; j++)
-                    foreach (Rectangle r in map.terrain[i, j].hitbox)
-                        if (r.Contains(new Point((int)position.X, (int)position.Y))) Impact();
-
+            
 
             position += dir * speed;
+            
+            // Opti pour faire moins de tests de collision
+            int imin, imax;
+            imin = (int)position.X / map.terrain[0, 0].largeur - 1;
+            imax = (int)position.X / map.terrain[0, 0].largeur + 1;
+
+            if (imin < 0) imin = 0;
+            if (imin > map.largeur) imin = map.largeur;
+
+            if (imax < 0) imax = 0;
+            if (imax > map.largeur) imax = map.largeur;
+
+
+            int jmin, jmax;
+            jmin = (int)position.Y / map.terrain[0, 0].largeur - 1;
+            jmax = (int)position.Y / map.terrain[0, 0].largeur + 1;
+
+            if (jmin < 0) jmin = 0;
+            if (jmin > map.hauteur) jmin = map.hauteur;
+
+            if (jmax < 0) jmax = 0;
+            if (jmax > map.hauteur) jmax = map.hauteur;
+
+            for (int i = imin; i < imax; i++)
+                for (int j = jmin ; j < jmax; j++)
+                    foreach (Rectangle r in map.terrain[i, j].hitbox)
+                        if (r.Contains(new Point((int)position.X, (int)position.Y))) { Impact(); position -= dir * speed; }
+            
 
             angle += angularVelocity;
         }

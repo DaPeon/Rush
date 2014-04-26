@@ -59,6 +59,9 @@ namespace EbaucheProjet
             foreach (Particle p in particles) p.Draw(sb);
         }
 
+        public void On() { on = true; }
+        public void Off() { on = false; }
+
         public virtual Particle NewParticle()
         {
             Vector2 position = pos;

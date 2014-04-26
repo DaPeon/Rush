@@ -73,7 +73,7 @@ namespace EbaucheProjet
 
     }
 
-    public class Camera2D
+    public class Camera2D // Camera utilisée
     {
         #region Vars
 
@@ -134,6 +134,8 @@ namespace EbaucheProjet
             scale += (Keyboard.GetState().IsKeyDown(Keys.NumPad3)) ? 0.05f : 0; // Zoom
             scale -= (Keyboard.GetState().IsKeyDown(Keys.NumPad1)) ? 0.05f : 0; // Dézoom
 
+            if (Keyboard.GetState().IsKeyDown(Keys.Multiply)) Initialize();
+
             if (
                 Keyboard.GetState().IsKeyDown(Keys.NumPad1) || 
                 Keyboard.GetState().IsKeyDown(Keys.NumPad2) || 
@@ -143,7 +145,8 @@ namespace EbaucheProjet
                 Keyboard.GetState().IsKeyDown(Keys.NumPad6) || 
                 Keyboard.GetState().IsKeyDown(Keys.NumPad7) ||
                 Keyboard.GetState().IsKeyDown(Keys.NumPad8) ||
-                Keyboard.GetState().IsKeyDown(Keys.LeftControl)    ||
+                Keyboard.GetState().IsKeyDown(Keys.Multiply)||
+                Keyboard.GetState().IsKeyDown(Keys.LeftControl) ||
                 Keyboard.GetState().IsKeyDown(Keys.NumPad9))
                 {return true;}
             else
