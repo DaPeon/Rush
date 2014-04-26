@@ -119,6 +119,7 @@ namespace EbaucheProjet
             if (Keyboard.GetState().IsKeyDown(Keys.D2)) particleEngine.type = 1;
             if (Keyboard.GetState().IsKeyDown(Keys.D3)) particleEngine.type = 2;
             if (Keyboard.GetState().IsKeyDown(Keys.D4)) particleEngine.type = 3;
+            if (Keyboard.GetState().IsKeyDown(Keys.D5)) particleEngine.type = 4;
 
             #endregion Touches
 
