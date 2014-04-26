@@ -195,25 +195,4 @@ namespace EbaucheProjet
             return new Particle(type, position, dir, speed, angle, angularVelocity, color, size, ttl);
         }
     }
-
-    public class LanceBouleImpact : ParticleEngine
-    {
-        public LanceBouleImpact(Vector2 pos, bool on)
-            : base(pos, 1, 25, on)
-        { }
-
-        public override Particle NewParticle()
-        {
-            Vector2 position = pos;
-            Vector2 dir = Vector2.Normalize(new Vector2((float)(r.NextDouble() * 2 - 1), (float)(r.NextDouble() * 2 - 1)));
-            float speed = (float)r.NextDouble() * 8f + 0f;
-            float angle = 0f;
-            float angularVelocity = 0.1f * (float)(r.NextDouble() * 2 - 1);
-            Color color = new Color((float)r.NextDouble() * 0.5f + 0.5f, 0, 0);
-            float size = (float)r.NextDouble() * 0.7f + 0.3f;
-            int ttl = 5 + r.Next(5);
-
-            return new Particle(type, position, dir, speed, angle, angularVelocity, color, size, ttl);
-        }
-    }
 }
