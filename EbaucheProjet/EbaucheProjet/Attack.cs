@@ -34,11 +34,15 @@ namespace EbaucheProjet
             speed = 100;
         }
 
+        public void Shoot() { shoot = true; }
+
         public void Update(Vector2 pos, Vector2 dir, Map map)
         {
             foreach (Bullet b in bullets)
             {
                 b.Update(map);
+
+                if (b.TTL <= 0) bullets.Remove(b);
             }
 
             if (shoot)
