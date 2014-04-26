@@ -18,14 +18,13 @@ namespace EbaucheProjet
         #region Vars
 
         public int speed; // Vitesse en pixel
-
         public int defaultSpeed; // Vitesse de base
-
         public Vector2 mov; // Mouvement a venir
-
         public Vector2 mid; // Centre du personnage ( sert d'axe pour la rotation)
-
         public Vector2 dir; // Direction du personnage
+
+        public bool shoot;
+        Weapon weapon;
 
         #endregion Vars
 
@@ -37,6 +36,7 @@ namespace EbaucheProjet
 
         public new void Draw(SpriteBatch sb)
         {
+            weapon.Draw(sb);
             sb.Draw(texture, mid, new Rectangle(phase * largeur, 0, largeur, hauteur), Color.White, rotation, new Vector2(largeur / 2, hauteur / 2), scale, SpriteEffects.None, 0);
         }
 
@@ -115,7 +115,10 @@ namespace EbaucheProjet
             // Fin des hitbox check
         }
 
-        public new void Update(GameTime gt, Vector2 lookedPoint, Map map, Camera2D cam) // Update position
+        public virtual void GetActions()
+        { }
+
+        public void Update(GameTime gt, Vector2 lookedPoint, Map map, Camera2D cam) // Update position
         {
             Mouv();
             
@@ -128,6 +131,10 @@ namespace EbaucheProjet
 
             rotation = (float)(Math.Atan2((double)dir.Y, (double)dir.X)) + MathHelper.Pi / 2;
 
+            GetActions();
+            if (shoot) weapon.Shoot();
+            weapon.Update(mid, dir, map);
+
             if (mov == Vector2.Zero)
                 nbPhases = 0;
             else
@@ -136,12 +143,12 @@ namespace EbaucheProjet
             base.Update(gt);
         }
 
-        public new void Update(GameTime gt, Map map, Camera2D cam) // Update position
+        public void Update(GameTime gt, Map map, Camera2D cam) // Update position
         {
             this.Update(gt, pos, map, cam);
         }
         
-        public new void LoadTextures(ContentManager cm, string textureName) // Load texture
+        public void LoadTextures(ContentManager cm, string textureName) // Load texture
         {
             base.LoadTextures(cm, textureName);
 
@@ -153,6 +160,9 @@ namespace EbaucheProjet
         {
             speed = 3;
             defaultSpeed = 3;
+
+            weapon = new LanceBoule();
+            shoot = false;
 
             mov = new Vector2(0, 0);
         }

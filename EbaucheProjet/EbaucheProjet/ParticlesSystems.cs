@@ -77,6 +77,7 @@ namespace EbaucheProjet
         {
             TTL--;
             if (TTL < 0) Die();
+
             for (int i = 0; i < map.largeur; i++)
                 for (int j = 0; j < map.hauteur; j++)
                     foreach (Rectangle r in map.terrain[i, j].hitbox)
