@@ -145,7 +145,7 @@ namespace EbaucheProjet
 
     public class LanceBoule : Weapon
     {
-        public LanceBoule() : base(4, 10, Color.Red, 1000/2, 1.5f, 100) { }
+        public LanceBoule() : base(4, 10, Color.Red, 1000 / 2, 1.5f, 100) { }
     }
 
     public class LanceBouleParticle : ParticleEngine
@@ -163,7 +163,7 @@ namespace EbaucheProjet
             float angularVelocity = 0.1f * (float)(r.NextDouble() * 2 - 1);
             Color color = new Color((float)r.NextDouble() * 0.5f + 0.5f, 0, 0);
             float size = (float)r.NextDouble() * 0.7f + 0.3f;
-            int ttl = 2 + r.Next(4);
+            int ttl = 5 + r.Next(5);
 
             return new Particle(type, position, dir, speed, angle, angularVelocity, color, size, ttl);
         }
