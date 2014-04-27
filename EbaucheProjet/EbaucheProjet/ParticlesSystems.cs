@@ -62,11 +62,12 @@ namespace EbaucheProjet
         public float angularVelocity;
         public Color color;
         public float size;
+        public int bumpin;
         public int TTL;
 
         #endregion Vars
 
-        public Particle(int type, Vector2 position, Vector2 dir, float speed, float angle, float angularVelocity, Color color, float size, int ttl)
+        public Particle(int type, Vector2 position, Vector2 dir, float speed, float angle, float angularVelocity, Color color, float size, int bumpin, int ttl)
         {
             this.alive = true;
             this.impact = false;
@@ -82,6 +83,7 @@ namespace EbaucheProjet
             this.angularVelocity = angularVelocity;
             this.color = color;
             this.size = size;
+            this.bumpin = bumpin;
             this.TTL = ttl;
         }
 
@@ -162,9 +164,9 @@ namespace EbaucheProjet
 
         #endregion Vars
 
-        public GravityParticle(int type, Vector2 position, Vector2 dir, float speed, float angle, float angularVelocity, Color color, float size, int ttl,
+        public GravityParticle(int type, Vector2 position, Vector2 dir, float speed, float angle, float angularVelocity, Color color, float size, int bumpin, int ttl,
             Vector2 gravityPoint, float gravityValue, bool gravityOn, bool dissapearOnPoint)
-            : base(type, position, dir, speed, angle, angularVelocity, color, size, ttl)
+            : base(type, position, dir, speed, angle, angularVelocity, color, size, bumpin, ttl)
         {
             this.gravityPoint = gravityPoint;
             this.gravityValue = gravityValue;

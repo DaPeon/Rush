@@ -73,7 +73,7 @@ namespace EbaucheProjet
             float size = (float)r.NextDouble() * 0.7f + 0.3f;
             int ttl = 50 + r.Next(50);
 
-            return new Particle(type, position, dir, speed, angle, angularVelocity, color, size, ttl);
+            return new Particle(type, position, dir, speed, angle, angularVelocity, color, size,0, ttl);
         }
 
         public virtual void Impact()

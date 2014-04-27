@@ -120,7 +120,9 @@ namespace EbaucheProjet
 
             #endregion Touches
 
-            camera.focus = ((3 * jacket.pos + cursor.globalMid) / 4);
+            camera.focus = ((2 * jacket.mid + cursor.globalMid) / 3);
+            if (Keyboard.GetState().IsKeyDown(Keys.LeftShift)) camera.focus = cursor.globalMid;
+
             camera.Update(gameTime);
             cursor.Update(gameTime, camera);
 

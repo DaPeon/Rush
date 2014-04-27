@@ -18,8 +18,8 @@ namespace EbaucheProjet
         public bool lastGenHappened;
         Weapons w;
 
-        public Bullet(int type, Vector2 position, Vector2 dir, float speed, float size, Color color, int TTL, Weapons w)
-            : base(type, position, dir, speed, 0f, 0f, color, size, TTL)
+        public Bullet(int type, Vector2 position, Vector2 dir, float speed, float size, Color color, int bumpin, int TTL, Weapons w)
+            : base(type, position, dir, speed, 0f, 0f, color, size, bumpin, TTL)
         {
             this.w = w;
             pEngine = Type.GetTypeOfEngine(w);
@@ -60,12 +60,13 @@ namespace EbaucheProjet
         public List<Particle> impacts;
         public float speed;
         public int type;
+        public int bumpin;
         public int TTL;
         public Color color;
         public float size;
         public Weapons w;
 
-        public BulletGenerator(int type, float speed, Color color, float size, int TTL, Weapons w)
+        public BulletGenerator(int type, float speed, Color color, float size,int bumpin, int TTL, Weapons w)
         {
             pos = Vector2.Zero;
             bullets = new List<Bullet>();
@@ -76,6 +77,7 @@ namespace EbaucheProjet
             this.type = type;
             this.color = color;
             this.size = size;
+            this.bumpin = bumpin;
             this.w = w;
         }
 
@@ -113,7 +115,7 @@ namespace EbaucheProjet
 
         public Bullet NewBullet(Vector2 dir)
         {
-            return new Bullet(type ,pos, dir, speed, size, color, TTL, w);
+            return new Bullet(type ,pos, dir, speed, size, color, bumpin, TTL, w);
         }
     }
 
@@ -132,7 +134,7 @@ namespace EbaucheProjet
         public int lastBullet;
 
 
-        public Weapon(int type, float speed, Color color, int bulletsInterval, float size, int TTL, Weapons w)
+        public Weapon(int type, float speed, Color color, int bulletsInterval, float size, int bumpin, int TTL, Weapons w)
         {
             this.speed = speed;
             this.type = type;
@@ -145,7 +147,7 @@ namespace EbaucheProjet
             shoot = false;
             lastBullet = 0;
 
-            bg = new BulletGenerator(type, speed, color,size, TTL, w);
+            bg = new BulletGenerator(type, speed, color,size, bumpin, TTL, w);
         }
 
         public void Update(GameTime gt, Vector2 pos, Vector2 dir, Map map)
@@ -197,11 +199,11 @@ namespace EbaucheProjet
         }
     }
 
-    // Weapon : BulletType, BulletSpeed, BulletColor, 1000/BulletsPerSecond, BulletSize, BulletLifeTime, WeaponType
+    // Weapon : BulletType, BulletSpeed, BulletColor, 1000/BulletsPerSecond, BulletSize, BulletBumps ,BulletLifeTime, WeaponType
 
     public class LanceBoule : Weapon
     {
-        public LanceBoule() : base(4, 10, Color.Red, 1000 / 1, 1.3f, 500, Weapons.LanceBoule) { }
+        public LanceBoule() : base(4, 10, Color.Red, 1000 / 1, 1.3f, 3, 500, Weapons.LanceBoule) { }
     }
 
     public class LanceBouleParticle : ParticleEngine
@@ -220,7 +222,7 @@ namespace EbaucheProjet
             float size = (float)r.NextDouble() * 0.7f + 0.3f;
             int ttl = 5 + r.Next(5);
 
-            return new Particle(type, position, dir, speed, angle, angularVelocity, color, size, ttl);
+            return new Particle(type, position, dir, speed, angle, angularVelocity, color, size, 0, ttl);
         }
 
         public override void Impact()
@@ -232,7 +234,7 @@ namespace EbaucheProjet
 
     public class Lazer : Weapon
     {
-        public Lazer() : base(0, 10, Color.Blue, 1000 / 1000, 1f, 500, Weapons.Lazer) { }
+        public Lazer() : base(0, 10, Color.Blue, 1000 / 1000, 1f, 5, 500, Weapons.Lazer) { }
     }
 
     public class LanceLazerParticle : ParticleEngine
@@ -256,7 +258,7 @@ namespace EbaucheProjet
             float size = 1f;
             int ttl = 5 + r.Next(5);
 
-            return new Particle(type, position, dir, speed, angle, angularVelocity, color, size, ttl);
+            return new Particle(type, position, dir, speed, angle, angularVelocity, color, size, 0, ttl);
         }
 
         public override void Impact()
@@ -269,7 +271,7 @@ namespace EbaucheProjet
 
     public class Caillou : Weapon
     {
-        public Caillou() : base(5, 6, new Color(0.1f, 0.1f, 0.1f), 1000 / 4, 1f, 500, Weapons.Caillou) { }
+        public Caillou() : base(5, 6, new Color(0.1f, 0.1f, 0.1f), 1000 / 4, 1f, 0, 500, Weapons.Caillou) { }
     }
 
     public class CaillouParticle : ParticleEngine
@@ -289,7 +291,7 @@ namespace EbaucheProjet
             float size = (float)r.NextDouble() * 0.3f + 0.1f;
             int ttl = 5 + r.Next(5);
 
-            return new Particle(type, position, dir, speed, angle, angularVelocity, color, size, ttl);
+            return new Particle(type, position, dir, speed, angle, angularVelocity, color, size, 0, ttl);
         }
 
         public override void Impact()
@@ -301,7 +303,7 @@ namespace EbaucheProjet
 
     public class Balle : Weapon
     {
-        public Balle() : base(2, 15, Color.Black, 1000 / 50, 1f, 500, Weapons.Balle) { }
+        public Balle() : base(2, 15, Color.Black, 1000 / 4, 1f, 0, 500, Weapons.Balle) { }
     }
 
     public class BalleParticle : ParticleEngine
@@ -324,7 +326,7 @@ namespace EbaucheProjet
             float size = (float)r.NextDouble() * 2f + 0.5f;
             int ttl = 15 + r.Next(15);
 
-            return new Particle(type, position, dir, speed, angle, angularVelocity, color, size, ttl);
+            return new Particle(type, position, dir, speed, angle, angularVelocity, color, size, 0, ttl);
         }
 
         public override void Impact()
