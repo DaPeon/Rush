@@ -53,7 +53,7 @@ namespace EbaucheProjet
             globalMid = Vector2.Transform(mid, Matrix.Invert(c.transform));
 
             if (Mouse.GetState().RightButton == ButtonState.Pressed)
-                color = Color.Green;
+                color = Color.Blue;
             else if (Mouse.GetState().LeftButton == ButtonState.Pressed)
                 color = Color.Red;
             else

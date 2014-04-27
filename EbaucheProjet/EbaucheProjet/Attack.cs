@@ -25,7 +25,7 @@ namespace EbaucheProjet
             lastGenHappened = false;
         }
 
-
+        
         public void Update(Map map)
         {
             if (!alive && !lastGenHappened)
@@ -169,11 +169,6 @@ namespace EbaucheProjet
     }
 
     // Weapon : BulletType, BulletSpeed, BulletColor, 1000/BulletsPerSecond, BulletSize, BulletLifeTime
-
-    public enum Particles
-    {
-        LanceBouleParticle,
-    }
 
     public class LanceBoule : Weapon
     {
