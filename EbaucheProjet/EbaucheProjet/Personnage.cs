@@ -23,8 +23,8 @@ namespace EbaucheProjet
         public Vector2 mid; // Centre du personnage ( sert d'axe pour la rotation)
         public Vector2 dir; // Direction du personnage
 
-        public bool shootLeft;
-        public bool shootRight;
+        public bool shootLeft; public Vector2 leftPos;
+        public bool shootRight; public Vector2 RightPos;
         public Weapon weaponLeft;
         public Weapon weaponRight;
 
@@ -110,13 +110,25 @@ namespace EbaucheProjet
 
             rotation = (float)(Math.Atan2((double)dir.Y, (double)dir.X)) + MathHelper.Pi / 2;
 
+
+            leftPos = mid - (new Vector2(20, 0));
+            RightPos = mid + (new Vector2(20, 0));
+            Vector2 dirL = new Vector2(); Vector2 dirR = new Vector2();
+
+            dirL = lookedPoint - leftPos;
+            dirL.Normalize();
+            dirR = lookedPoint - RightPos;
+            dirR.Normalize();
+
             GetActions();
 
             if (shootLeft) weaponLeft.Shoot();
-            weaponLeft.Update(gt, mid, dir, map);
+            weaponLeft.Update(gt, leftPos, dirL, map);
             
             if (shootRight) weaponRight.Shoot();
-            weaponRight.Update(gt, mid, dir, map);
+            weaponRight.Update(gt, RightPos, dirR, map);
+
+
 
             if (mov == Vector2.Zero)
                 nbPhases = 0;
@@ -144,13 +156,16 @@ namespace EbaucheProjet
             speed = 3;
             defaultSpeed = speed;
 
-            weaponLeft = new LanceBoule();
-            weaponRight = new LanceLazer(); 
+            weaponLeft = new Balle();
+            weaponRight = new LanceBoule(); 
 
             shootLeft = false;
             shootRight = false;
 
             mov = new Vector2(0, 0);
+
+            leftPos = new Vector2(0, 0);
+            RightPos = new Vector2(0, 0);
         }
     }
 }

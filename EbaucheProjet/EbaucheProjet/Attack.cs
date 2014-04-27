@@ -177,7 +177,9 @@ namespace EbaucheProjet
     public enum Weapons
     {
         LanceBoule,
-        Lazer
+        Lazer,
+        Caillou,
+        Balle
     }
 
     public static class Type
@@ -186,26 +188,26 @@ namespace EbaucheProjet
         {
             switch (w)
             {
-                case Weapons.LanceBoule: return (new LanceBouleParticle(Vector2.Zero));
-                    break;
+                case Weapons.LanceBoule: return (new LanceBouleParticle(Vector2.Zero));break;
                 case Weapons.Lazer: return (new LanceLazerParticle(Vector2.Zero));
-                default: return null;
-                    break;
+                case Weapons.Caillou: return (new CaillouParticle(Vector2.Zero));
+                case Weapons.Balle: return (new BalleParticle(Vector2.Zero));
+                default: return null; break;
             }
         }
     }
 
-    // Weapon : BulletType, BulletSpeed, BulletColor, 1000/BulletsPerSecond, BulletSize, BulletLifeTime
+    // Weapon : BulletType, BulletSpeed, BulletColor, 1000/BulletsPerSecond, BulletSize, BulletLifeTime, WeaponType
 
     public class LanceBoule : Weapon
     {
-        public LanceBoule() : base(4, 10, Color.Red, 1000 / 2, 1.3f, 500, Weapons.LanceBoule) { }
+        public LanceBoule() : base(4, 10, Color.Red, 1000 / 1, 1.3f, 500, Weapons.LanceBoule) { }
     }
 
     public class LanceBouleParticle : ParticleEngine
     {
         public LanceBouleParticle(Vector2 pos)
-            : base(pos, 1, 25, true) { }
+            : base(pos, 2, 25, true) { }
 
         public override Particle NewParticle()
         {
@@ -227,26 +229,100 @@ namespace EbaucheProjet
         }
     }
 
-    public class LanceLazer : Weapon
+
+    public class Lazer : Weapon
     {
-        public LanceLazer() : base(0, 10, Color.Blue, 1000 / 1, 1f, 500, Weapons.Lazer) { }
+        public Lazer() : base(0, 10, Color.Blue, 1000 / 1000, 1f, 500, Weapons.Lazer) { }
     }
 
     public class LanceLazerParticle : ParticleEngine
     {
+        public float speedFactor;
+
         public LanceLazerParticle(Vector2 pos)
-            : base(pos, 0, 5, true) { }
+            : base(pos, 0, 5, true)
+        {
+            speedFactor = 0.4f;
+        }
 
         public override Particle NewParticle()
         {
             Vector2 position = pos;
             Vector2 dir = Vector2.Normalize(new Vector2((float)(r.NextDouble() * 2 - 1), (float)(r.NextDouble() * 2 - 1)));
-            float speed = (float)r.NextDouble() * 0.1f + 0f;
+            float speed = (float)r.NextDouble() * speedFactor + 0f;
             float angle = 0f;
             float angularVelocity = 0.1f * (float)(r.NextDouble() * 2 - 1);
             Color color = new Color(0, 0, (float)r.NextDouble() * 0.5f + 0.5f);
             float size = 1f;
-            int ttl = 10 + r.Next(10);
+            int ttl = 5 + r.Next(5);
+
+            return new Particle(type, position, dir, speed, angle, angularVelocity, color, size, ttl);
+        }
+
+        public override void Impact()
+        {
+            particlesPerUp = 25;
+            speedFactor = 4f;
+        }
+    }
+
+
+    public class Caillou : Weapon
+    {
+        public Caillou() : base(5, 6, new Color(0.1f, 0.1f, 0.1f), 1000 / 4, 1f, 500, Weapons.Caillou) { }
+    }
+
+    public class CaillouParticle : ParticleEngine
+    {
+        public CaillouParticle(Vector2 pos)
+            : base(pos, 5, 1, true) { }
+
+        public override Particle NewParticle()
+        {
+            Vector2 position = pos;
+            Vector2 dir = Vector2.Normalize(new Vector2((float)(r.NextDouble() * 2 - 1), (float)(r.NextDouble() * 2 - 1)));
+            float speed = (float)r.NextDouble() * 1.5f + 0.5f;
+            float angle = 0f;
+            float angularVelocity = 0.1f * (float)(r.NextDouble() * 2 - 1);
+            float temp = (float)r.NextDouble() * 0.2f;
+            Color color = new Color(temp, temp, temp);
+            float size = (float)r.NextDouble() * 0.3f + 0.1f;
+            int ttl = 5 + r.Next(5);
+
+            return new Particle(type, position, dir, speed, angle, angularVelocity, color, size, ttl);
+        }
+
+        public override void Impact()
+        {
+            particlesPerUp = 1000;
+        }
+    }
+
+
+    public class Balle : Weapon
+    {
+        public Balle() : base(2, 15, Color.Black, 1000 / 50, 1f, 500, Weapons.Balle) { }
+    }
+
+    public class BalleParticle : ParticleEngine
+    {
+        public bool smoke;
+
+        public BalleParticle(Vector2 pos)
+            : base(pos, 3, 10, true) { smoke = true; }
+
+        public override Particle NewParticle()
+        {
+            Vector2 position = pos;
+            Vector2 dir = Vector2.Normalize(new Vector2((float)(r.NextDouble() * 2 - 1), (float)(r.NextDouble() * 2 - 1)));
+            float speed = (float)r.NextDouble() * 1.5f + 0.0f;
+            float angle = 0f;
+            float angularVelocity = 0.1f * (float)(r.NextDouble() * 2 - 1);
+            Color color;
+            if (smoke) { float temp = (float)r.NextDouble() * 0.5f + 0.2f; color = new Color(temp, temp, temp); }
+            else { color = new Color(1f, (float)r.NextDouble() * 0.5f + 0.2f, 0f); }
+            float size = (float)r.NextDouble() * 2f + 0.5f;
+            int ttl = 15 + r.Next(15);
 
             return new Particle(type, position, dir, speed, angle, angularVelocity, color, size, ttl);
         }
@@ -254,6 +330,7 @@ namespace EbaucheProjet
         public override void Impact()
         {
             particlesPerUp = 100;
+            smoke = false;
         }
     }
 }

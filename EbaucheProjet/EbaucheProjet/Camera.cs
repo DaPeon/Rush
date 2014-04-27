@@ -79,9 +79,7 @@ namespace EbaucheProjet
 
         public Vector2 pos;
         public Vector2 mov;
-
         public Vector2 focus;
-        
         public Vector2 screenCenter;
         public float height;
         public float width;
@@ -89,9 +87,8 @@ namespace EbaucheProjet
 
         public float rotation;
         public float scale;
-
         public float speed;
-
+        
         public Matrix transform;
 
         #endregion Vars
@@ -162,7 +159,6 @@ namespace EbaucheProjet
                         Matrix.CreateScale(new Vector3(scale, scale, scale));
 
             origin = screenCenter / scale;
-
 
             if (!Mouv())
             {

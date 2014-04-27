@@ -18,6 +18,7 @@ namespace EbaucheProjet
         public static Texture2D star; // 2
         public static Texture2D dot; // 3
         public static Texture2D bigCircle; // 4
+        public static Texture2D rock; // 5
 
         public static Texture2D GetTexture(int n)
         {
@@ -28,6 +29,7 @@ namespace EbaucheProjet
                 case 2: return star; break;
                 case 3: return dot; break;
                 case 4: return bigCircle; break;
+                case 5: return rock; break;
                 default: return air; break;
             }
         }
@@ -39,6 +41,7 @@ namespace EbaucheProjet
             star = cm.Load<Texture2D>("particles/star");
             dot = cm.Load<Texture2D>("particles/dot");
             bigCircle = cm.Load<Texture2D>("particles/bigCircle");
+            rock = cm.Load<Texture2D>("particles/rock");
         }
     }
 

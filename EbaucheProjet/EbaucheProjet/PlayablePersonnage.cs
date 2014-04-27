@@ -53,8 +53,7 @@ namespace EbaucheProjet
                 canShootLeft = false;
             }
             if (Mouse.GetState().LeftButton == ButtonState.Released && !canShootLeft) canShootLeft = true;
-
-
+            
             shootRight = false;
             if (Mouse.GetState().RightButton == ButtonState.Pressed && canShootRight)
             {
