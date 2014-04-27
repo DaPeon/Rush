@@ -21,7 +21,8 @@ namespace EbaucheProjet
         public Keys b;
         public Keys d;
 
-        public bool canShoot;
+        public bool canShootLeft;
+        public bool canShootRight;
 
         #endregion Vars
 
@@ -45,18 +46,22 @@ namespace EbaucheProjet
 
         public override void GetActions()
         {
-            shoot = false;
-
-            if (Mouse.GetState().LeftButton == ButtonState.Pressed && canShoot)
+            shootLeft = false;
+            if (Mouse.GetState().LeftButton == ButtonState.Pressed && canShootLeft)
             {
-                shoot = true;
-                canShoot = false;
+                shootLeft = true;
+                canShootLeft = false;
             }
+            if (Mouse.GetState().LeftButton == ButtonState.Released && !canShootLeft) canShootLeft = true;
 
-            if (Mouse.GetState().LeftButton == ButtonState.Released && !canShoot)
+
+            shootRight = false;
+            if (Mouse.GetState().RightButton == ButtonState.Pressed && canShootRight)
             {
-                canShoot = true;
+                shootRight = true;
+                canShootRight = false;
             }
+            if (Mouse.GetState().RightButton == ButtonState.Released && !canShootRight) canShootRight = true;
         }
 
         public PlayablePersonnage(string name, Vector2 pos, int nbPhases, Color couleur, Keys h, Keys g, Keys b, Keys d) : base(name, pos, nbPhases)

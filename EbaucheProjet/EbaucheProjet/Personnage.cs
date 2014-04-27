@@ -23,8 +23,10 @@ namespace EbaucheProjet
         public Vector2 mid; // Centre du personnage ( sert d'axe pour la rotation)
         public Vector2 dir; // Direction du personnage
 
-        public bool shoot;
-        public Weapon weapon;
+        public bool shootLeft;
+        public bool shootRight;
+        public Weapon weaponLeft;
+        public Weapon weaponRight;
 
         #endregion Vars
 
@@ -36,7 +38,8 @@ namespace EbaucheProjet
 
         public new void Draw(SpriteBatch sb)
         {
-            weapon.Draw(sb);
+            weaponLeft.Draw(sb);
+            weaponRight.Draw(sb);
             sb.Draw(texture, mid, new Rectangle(phase * largeur, 0, largeur, hauteur), Color.White, rotation, new Vector2(largeur / 2, hauteur / 2), scale, SpriteEffects.None, 0);
         }
 
@@ -108,8 +111,12 @@ namespace EbaucheProjet
             rotation = (float)(Math.Atan2((double)dir.Y, (double)dir.X)) + MathHelper.Pi / 2;
 
             GetActions();
-            if (shoot) weapon.Shoot();
-            weapon.Update(gt ,mid, dir, map);
+
+            if (shootLeft) weaponLeft.Shoot();
+            weaponLeft.Update(gt, mid, dir, map);
+            
+            if (shootRight) weaponRight.Shoot();
+            weaponRight.Update(gt, mid, dir, map);
 
             if (mov == Vector2.Zero)
                 nbPhases = 0;
@@ -137,8 +144,11 @@ namespace EbaucheProjet
             speed = 3;
             defaultSpeed = speed;
 
-            weapon = new LanceBoule();
-            shoot = false;
+            weaponLeft = new LanceBoule();
+            weaponRight = new LanceLazer(); 
+
+            shootLeft = false;
+            shootRight = false;
 
             mov = new Vector2(0, 0);
         }

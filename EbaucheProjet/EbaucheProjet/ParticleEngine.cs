@@ -75,5 +75,8 @@ namespace EbaucheProjet
 
             return new Particle(type, position, dir, speed, angle, angularVelocity, color, size, ttl);
         }
+
+        public virtual void Impact()
+        { }
     }
 }
