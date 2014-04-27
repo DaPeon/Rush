@@ -48,7 +48,6 @@ namespace EbaucheProjet
 
         public bool alive;
         public bool impact;
-        public bool killingImpact;
 
         public int type;
         public int width;
@@ -81,8 +80,6 @@ namespace EbaucheProjet
             this.color = color;
             this.size = size;
             this.TTL = ttl;
-
-            killingImpact = true;
         }
 
         public void Update(Map map)
@@ -134,7 +131,7 @@ namespace EbaucheProjet
         public void Impact()
         { 
             impact = true;
-            if (killingImpact) Die();
+            Die();
         }
     }
 

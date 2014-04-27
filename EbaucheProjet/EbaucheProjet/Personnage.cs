@@ -24,7 +24,7 @@ namespace EbaucheProjet
         public Vector2 dir; // Direction du personnage
 
         public bool shoot;
-        Weapon weapon;
+        public Weapon weapon;
 
         #endregion Vars
 
@@ -39,30 +39,6 @@ namespace EbaucheProjet
             weapon.Draw(sb);
             sb.Draw(texture, mid, new Rectangle(phase * largeur, 0, largeur, hauteur), Color.White, rotation, new Vector2(largeur / 2, hauteur / 2), scale, SpriteEffects.None, 0);
         }
-
-        /*
-        public void Update(GameTime gt, Vector2 lookedPoint) // Update position
-        {
-            base.Update(gt);
-
-            mov = Mouv();
-            
-
-            pos += mov;
-            mid = new Vector2(pos.X + (largeur / 2), pos.Y + (hauteur / 2)); // On definit le milieu du perso, vu qu'on a sa largeur/hauteur
-
-            dir = lookedPoint; // On calcule la direction du regard, par rapport au point regardé
-            dir.Normalize(); // On le normalise pour pas exploser
-
-            rotation = (float)(Math.Atan2((double)dir.Y, (double)dir.X)) + MathHelper.Pi/2;
-
-
-            if (mov == Vector2.Zero)
-                nbPhases = 0;
-            else
-                nbPhases = nbPhasesTotal;
-        }*/
-
 
         public void SetHitbox()
         {
@@ -159,7 +135,7 @@ namespace EbaucheProjet
         public Personnage(string name, Vector2 pos, int nbPhases) : base(name, pos, nbPhases, Color.White) // Constructeur (ne pas oublier de load la texture)
         {
             speed = 3;
-            defaultSpeed = 3;
+            defaultSpeed = speed;
 
             weapon = new LanceBoule();
             shoot = false;

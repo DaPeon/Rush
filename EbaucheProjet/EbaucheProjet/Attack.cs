@@ -20,7 +20,7 @@ namespace EbaucheProjet
         public Bullet(int type, Vector2 position, Vector2 dir, float speed, float size, Color color, int TTL)
             : base(type, position, dir, speed, 0f, 0f, color, size, TTL)
         {
-            pEngine = new LanceBouleParticle(position, true);
+            pEngine;
             toRemove = false;
             lastGenHappened = false;
         }
@@ -170,16 +170,20 @@ namespace EbaucheProjet
 
     // Weapon : BulletType, BulletSpeed, BulletColor, 1000/BulletsPerSecond, BulletSize, BulletLifeTime
 
+    public enum Particles
+    {
+        LanceBouleParticle,
+    }
+
     public class LanceBoule : Weapon
     {
-        public LanceBoule() : base(4, 10, Color.Red, 1000 / 2, 1.5f, 500) { }
+        public LanceBoule() : base(4, 10, Color.Red, 1000 / 2, 1.3f, 500) { }
     }
 
     public class LanceBouleParticle : ParticleEngine
     {
-        public LanceBouleParticle(Vector2 pos, bool on)
-            : base(pos, 1, 25, on)
-        { }
+        public LanceBouleParticle(Vector2 pos)
+            : base(pos, 1, 25, true) { }
 
         public override Particle NewParticle()
         {
@@ -188,7 +192,7 @@ namespace EbaucheProjet
             float speed = (float)r.NextDouble() * 8f + 0f;
             float angle = 0f;
             float angularVelocity = 0.1f * (float)(r.NextDouble() * 2 - 1);
-            Color color = new Color((float)r.NextDouble() * 0.5f + 0.5f, 0, 0);
+            Color color = new Color((float)r.NextDouble() * 0.3f + 0.7f, (float)r.NextDouble() * 0.2f + 0.0f, 0f);
             float size = (float)r.NextDouble() * 0.7f + 0.3f;
             int ttl = 5 + r.Next(5);
 
