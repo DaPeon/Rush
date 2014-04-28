@@ -46,7 +46,7 @@ namespace EbaucheProjet
         public void SetHitbox()
         {
             hitbox = new List<Rectangle>();
-            hitbox.Add(new Rectangle((int)pos.X + 10, (int)pos.Y + 10, 44, 44));
+            hitbox.Add(new Rectangle((int)pos.X + 19, (int)pos.Y + 19, 43 - 19, 43 - 19));
         }
 
         public void MouvWithHitBoxes(Map map)
@@ -97,7 +97,7 @@ namespace EbaucheProjet
         public virtual void GetActions()
         { }
 
-        public void Update(GameTime gt, Vector2 lookedPoint, Map map, Camera2D cam) // Update position
+        public virtual void Update(GameTime gt, Vector2 lookedPoint, Map map, Camera2D cam) // Update position
         {
             Mouv();
             
@@ -123,10 +123,10 @@ namespace EbaucheProjet
             GetActions();
 
             if (shootLeft) weaponLeft.Shoot();
-            weaponLeft.Update(gt, leftPos, dirL, map);
+            weaponLeft.Update(gt, mid, dir, map);
             
             if (shootRight) weaponRight.Shoot();
-            weaponRight.Update(gt, RightPos, dirR, map);
+            weaponRight.Update(gt, mid, dir, map);
 
 
 

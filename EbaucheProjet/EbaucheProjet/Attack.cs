@@ -271,7 +271,7 @@ namespace EbaucheProjet
 
     public class Caillou : Weapon
     {
-        public Caillou() : base(5, 6, new Color(0.1f, 0.1f, 0.1f), 1000 / 4, 1f, 0, 500, Weapons.Caillou) { }
+        public Caillou() : base(5, 6, new Color(0.1f, 0.1f, 0.1f), 1000 / 4, 1f, 1, 500, Weapons.Caillou) { }
     }
 
     public class CaillouParticle : ParticleEngine

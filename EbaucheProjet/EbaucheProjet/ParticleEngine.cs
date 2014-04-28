@@ -71,9 +71,9 @@ namespace EbaucheProjet
             float angularVelocity = 0.1f * (float)(r.NextDouble() * 2 - 1);
             Color color = new Color((float)r.NextDouble(), (float)r.NextDouble(), (float)r.NextDouble());
             float size = (float)r.NextDouble() * 0.7f + 0.3f;
-            int ttl = 50 + r.Next(50);
+            int ttl = 100 + r.Next(50);
 
-            return new Particle(type, position, dir, speed, angle, angularVelocity, color, size,0, ttl);
+            return new Particle(type, position, dir, speed, angle, angularVelocity, color, size, 5, ttl);
         }
 
         public virtual void Impact()
