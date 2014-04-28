@@ -92,13 +92,10 @@ namespace EbaucheProjet
             TTL--;
             if (TTL < 0) Die();
             
-
-            position += dir * speed;
-            
             // Opti pour faire moins de tests de collision
             int imin, imax;
-            imin = (int)position.X / map.terrain[0, 0].largeur - 1;
-            imax = (int)position.X / map.terrain[0, 0].largeur + 1;
+            imin = (int)position.X / map.terrain[0, 0].largeur - 2;
+            imax = (int)position.X / map.terrain[0, 0].largeur + 2;
 
             if (imin < 0) imin = 0;
             if (imin > map.largeur) imin = map.largeur;
@@ -108,8 +105,8 @@ namespace EbaucheProjet
 
 
             int jmin, jmax;
-            jmin = (int)position.Y / map.terrain[0, 0].largeur - 1;
-            jmax = (int)position.Y / map.terrain[0, 0].largeur + 1;
+            jmin = (int)position.Y / map.terrain[0, 0].largeur - 2;
+            jmax = (int)position.Y / map.terrain[0, 0].largeur + 2;
 
             if (jmin < 0) jmin = 0;
             if (jmin > map.hauteur) jmin = map.hauteur;
@@ -117,11 +114,30 @@ namespace EbaucheProjet
             if (jmax < 0) jmax = 0;
             if (jmax > map.hauteur) jmax = map.hauteur;
 
+            position.X += dir.X * speed;
+
             for (int i = imin; i < imax; i++)
                 for (int j = jmin ; j < jmax; j++)
                     foreach (Rectangle r in map.terrain[i, j].hitbox)
-                        if (r.Contains(new Point((int)position.X, (int)position.Y))) { Impact(); position -= dir * speed; }
-            
+                        if (r.Contains(new Point((int)position.X, (int)position.Y)))
+                        {
+                            if (bumpin <= 0) { Impact(); position -= dir * speed; }
+                            if (bumpin > 0) { bumpin--; position.X -= 2 * dir.X * speed; dir.X = -dir.X; }
+                        }
+
+
+            position.Y += dir.Y * speed;
+
+            for (int i = imin; i < imax; i++)
+                for (int j = jmin; j < jmax; j++)
+                    foreach (Rectangle r in map.terrain[i, j].hitbox)
+                        if (r.Contains(new Point((int)position.X, (int)position.Y)))
+                        {
+                            if (bumpin <= 0) { Impact(); position -= dir * speed; }
+                            if (bumpin > 0) { bumpin--; position.Y -= 2 * dir.Y * speed; dir.Y = -dir.Y; }
+                        }
+
+
 
             angle += angularVelocity;
         }
