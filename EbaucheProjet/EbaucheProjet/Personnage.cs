@@ -119,7 +119,7 @@ namespace EbaucheProjet
             dirL.Normalize();
             dirR = lookedPoint - RightPos;
             dirR.Normalize();
-
+            
             GetActions();
 
             if (shootLeft) weaponLeft.Shoot();
