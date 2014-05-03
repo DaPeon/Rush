@@ -21,7 +21,10 @@ namespace EbaucheProjet
 
         Camera2D camera; // La cam
 
-        PlayablePersonnage jacket; // mon perso
+        PlayablePersonnage player1; // mon perso
+
+        List<Personnage> personnages;
+
         Cursor cursor;
 
         Map gameMap;
@@ -56,7 +59,12 @@ namespace EbaucheProjet
             Options.Init(graphics);
 
             camera = new Camera2D(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
-            jacket = new PlayablePersonnage("Jacket", new Vector2(64,64), 8, Color.White, Keys.Z, Keys.Q, Keys.S, Keys.D); // New bonhomme (jacket)
+            
+            player1 = new PlayablePersonnage("player1", new Vector2(64, 64), 8, Color.White, Keys.Z, Keys.Q, Keys.S, Keys.D); // New bonhomme (jacket)
+            personnages = new List<Personnage>();
+            personnages.Add(player1);
+
+
             cursor = new Cursor();
 
             particleEngine = new ParticleEngine(new Vector2(0, 0), 0);
@@ -79,7 +87,7 @@ namespace EbaucheProjet
 
 
             // TODO: use this.Content to load your game content here
-            jacket.LoadTextures(Content,"persoMapV2"); // Load la texture de jacket
+            player1.LoadTextures(Content, "persoMapV2"); // Load la texture de jacket
             cursor.LoadTextures(Content,"CursorsW"); // Load les textures de la souris
 
             ParticleTextures.LoadTextures(Content);
@@ -108,7 +116,7 @@ namespace EbaucheProjet
             if (Keyboard.GetState().IsKeyDown(Keys.Escape)) this.Exit(); // Exit
 
             if (Keyboard.GetState().IsKeyDown(Keys.LeftShift)) camera.focus = cursor.globalMid;
-            if (Keyboard.GetState().IsKeyDown(Keys.LeftControl)) jacket.pos = cursor.globalMid - (new Vector2(jacket.largeur, jacket.hauteur)) / 2;
+            if (Keyboard.GetState().IsKeyDown(Keys.LeftControl)) player1.pos = cursor.globalMid - (new Vector2(player1.largeur, player1.hauteur)) / 2;
 
             if (Mouse.GetState().MiddleButton == ButtonState.Pressed) particleEngine.on = true;
             if (Keyboard.GetState().IsKeyDown(Keys.D0)) particleEngine.on = false;
@@ -120,7 +128,7 @@ namespace EbaucheProjet
 
             #endregion Touches
 
-            camera.focus = ((2 * jacket.mid + cursor.globalMid) / 3);
+            camera.focus = ((2 * player1.mid + cursor.globalMid) / 3);
             if (Keyboard.GetState().IsKeyDown(Keys.LeftShift)) camera.focus = cursor.globalMid;
 
             camera.Update(gameTime);
@@ -128,9 +136,9 @@ namespace EbaucheProjet
 
             if (Keyboard.GetState().IsKeyDown(Keys.P)) return; // Pause
 
-            jacket.Update(gameTime, cursor.globalMid, gameMap, camera); // Jacket s'update
+            player1.Update(gameTime, cursor.globalMid, gameMap, camera); // Jacket s'update
             Options.GetOptions(graphics);
-            particleEngine.Update(gameMap, jacket.mid);
+            particleEngine.Update(gameMap, player1.mid);
 
             base.Update(gameTime);
         }
@@ -148,7 +156,7 @@ namespace EbaucheProjet
             spriteBatch.End();
 
             spriteBatch.Begin(SpriteSortMode.Texture, BlendState.AlphaBlend, null, null, null, null, camera.transform);
-                jacket.Draw(spriteBatch); // Jacket se dessine
+                foreach (Personnage p in personnages) p.Draw(spriteBatch);
                 particleEngine.Draw(spriteBatch);
             spriteBatch.End();
 
