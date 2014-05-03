@@ -87,11 +87,8 @@ namespace EbaucheProjet
             this.TTL = ttl;
         }
 
-        public void Update(Map map)
+        public void MouvWithCollisions(Map map)
         {
-            TTL--;
-            if (TTL < 0) Die();
-            
             // Opti pour faire moins de tests de collision
             int imin, imax;
             imin = (int)position.X / map.terrain[0, 0].largeur - 2;
@@ -114,30 +111,58 @@ namespace EbaucheProjet
             if (jmax < 0) jmax = 0;
             if (jmax > map.hauteur) jmax = map.hauteur;
 
-            position.X += dir.X * speed;
 
-            for (int i = imin; i < imax; i++)
-                for (int j = jmin ; j < jmax; j++)
-                    foreach (Rectangle r in map.terrain[i, j].hitbox)
-                        if (r.Contains(new Point((int)position.X, (int)position.Y)))
-                        {
-                            if (bumpin <= 0) { Impact(); position -= dir * speed; }
-                            if (bumpin > 0) { bumpin--; position.X -= 2 * dir.X * speed; dir.X = -dir.X; }
-                        }
+            // Debut des smooth collisions
+            // X
+            float intervalle = speed / 10;
+            float s = 0;
+            bool collision = false;
+
+            while (s <= speed && !collision)
+            {
+                position.X += dir.X * intervalle;
+
+                for (int i = imin; i < imax; i++)
+                    for (int j = jmin; j < jmax; j++)
+                        foreach (Rectangle r in map.terrain[i, j].hitbox)
+                            if (r.Intersects(new Rectangle((int)position.X - width / 2, (int)position.Y - height / 2, width, height))) collision = true;
+
+                s += intervalle;
+            }
+            if (collision)
+            {
+                if (bumpin <= 0) { Impact(); position -= dir * intervalle; }
+                if (bumpin > 0) { bumpin--; position -= dir * intervalle; dir.X = -dir.X; }
+            }
 
 
-            position.Y += dir.Y * speed;
+            // Y
+            s = 0;
+            collision = false;
 
-            for (int i = imin; i < imax; i++)
-                for (int j = jmin; j < jmax; j++)
-                    foreach (Rectangle r in map.terrain[i, j].hitbox)
-                        if (r.Contains(new Point((int)position.X, (int)position.Y)))
-                        {
-                            if (bumpin <= 0) { Impact(); position -= dir * speed; }
-                            if (bumpin > 0) { bumpin--; position.Y -= 2 * dir.Y * speed; dir.Y = -dir.Y; }
-                        }
+            while (s <= speed && !collision)
+            {
+                position.Y += dir.Y * intervalle;
 
+                for (int i = imin; i < imax; i++)
+                    for (int j = jmin; j < jmax; j++)
+                        foreach (Rectangle r in map.terrain[i, j].hitbox)
+                            if (r.Intersects(new Rectangle((int)position.X - width / 2, (int)position.Y - height / 2, width, height))) collision = true;
+                s += intervalle;
+            }
+            if (collision)
+            {
+                if (bumpin <= 0) { Impact(); position -= dir * intervalle; }
+                if (bumpin > 0) { bumpin--; position -= dir * intervalle; dir.Y = -dir.Y; }
+            }
+        }
 
+        public void Update(Map map)
+        {
+            TTL--;
+            if (TTL < 0) Die();
+
+            MouvWithCollisions(map);
 
             angle += angularVelocity;
         }
