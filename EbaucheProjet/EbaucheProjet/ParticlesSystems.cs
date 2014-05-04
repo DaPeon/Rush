@@ -64,10 +64,11 @@ namespace EbaucheProjet
         public float size;
         public int bumpin;
         public int TTL;
+        public int bumpPrecision;
 
         #endregion Vars
 
-        public Particle(int type, Vector2 position, Vector2 dir, float speed, float angle, float angularVelocity, Color color, float size, int bumpin, int ttl)
+        public Particle(int type, Vector2 position, Vector2 dir, float speed, float angle, float angularVelocity, Color color, float size, int bumpin, int ttl, int bumpPrecision)
         {
             this.alive = true;
             this.impact = false;
@@ -85,6 +86,7 @@ namespace EbaucheProjet
             this.size = size;
             this.bumpin = bumpin;
             this.TTL = ttl;
+            this.bumpPrecision = bumpPrecision;
         }
 
         public void MouvWithCollisions(Map map)
@@ -114,7 +116,7 @@ namespace EbaucheProjet
 
             // Debut des smooth collisions
             // X
-            float intervalle = speed / 10;
+            float intervalle = speed / bumpPrecision;
             float s = 0;
             bool collision = false;
 
@@ -205,9 +207,9 @@ namespace EbaucheProjet
 
         #endregion Vars
 
-        public GravityParticle(int type, Vector2 position, Vector2 dir, float speed, float angle, float angularVelocity, Color color, float size, int bumpin, int ttl,
+        public GravityParticle(int type, Vector2 position, Vector2 dir, float speed, float angle, float angularVelocity, Color color, float size, int bumpin, int ttl, int bumpPrecision,
             Vector2 gravityPoint, float gravityValue, bool gravityOn, bool dissapearOnPoint)
-            : base(type, position, dir, speed, angle, angularVelocity, color, size, bumpin, ttl)
+            : base(type, position, dir, speed, angle, angularVelocity, color, size, bumpin, ttl, bumpPrecision)
         {
             this.gravityPoint = gravityPoint;
             this.gravityValue = gravityValue;

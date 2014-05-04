@@ -19,7 +19,7 @@ namespace EbaucheProjet
         Weapons w;
 
         public Bullet(int type, Vector2 position, Vector2 dir, float speed, float size, Color color, int bumpin, int TTL, Weapons w)
-            : base(type, position, dir, speed, 0f, 0f, color, size, bumpin, TTL)
+            : base(type, position, dir, speed, 0f, 0f, color, size, bumpin, TTL, 5)
         {
             this.w = w;
             pEngine = Type.GetTypeOfEngine(w);
@@ -222,7 +222,7 @@ namespace EbaucheProjet
             float size = (float)r.NextDouble() * 0.7f + 0.3f;
             int ttl = 5 + r.Next(5);
 
-            return new Particle(type, position, dir, speed, angle, angularVelocity, color, size, 0, ttl);
+            return new Particle(type, position, dir, speed, angle, angularVelocity, color, size, 0, ttl, 1);
         }
 
         public override void Impact()
@@ -258,7 +258,7 @@ namespace EbaucheProjet
             float size = 1f;
             int ttl = 5 + r.Next(5);
 
-            return new Particle(type, position, dir, speed, angle, angularVelocity, color, size, 0, ttl);
+            return new Particle(type, position, dir, speed, angle, angularVelocity, color, size, 0, ttl, 1);
         }
 
         public override void Impact()
@@ -291,7 +291,7 @@ namespace EbaucheProjet
             float size = (float)r.NextDouble() * 0.3f + 0.1f;
             int ttl = 5 + r.Next(5);
 
-            return new Particle(type, position, dir, speed, angle, angularVelocity, color, size, 0, ttl);
+            return new Particle(type, position, dir, speed, angle, angularVelocity, color, size, 0, ttl, 1);
         }
 
         public override void Impact()
@@ -326,7 +326,7 @@ namespace EbaucheProjet
             float size = (float)r.NextDouble() * 2f + 0.5f;
             int ttl = 15 + r.Next(15);
 
-            return new Particle(type, position, dir, speed, angle, angularVelocity, color, size, 0, ttl);
+            return new Particle(type, position, dir, speed, angle, angularVelocity, color, size, 0, ttl, 1);
         }
 
         public override void Impact()
