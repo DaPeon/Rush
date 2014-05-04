@@ -215,12 +215,12 @@ namespace EbaucheProjet
         {
             Vector2 position = pos;
             Vector2 dir = Vector2.Normalize(new Vector2((float)(r.NextDouble() * 2 - 1), (float)(r.NextDouble() * 2 - 1)));
-            float speed = (float)r.NextDouble() * 6f + 0f;
+            float speed = (float)r.NextDouble() * 2f + 0f;
             float angle = 0f;
             float angularVelocity = 0.1f * (float)(r.NextDouble() * 2 - 1);
             Color color = new Color((float)r.NextDouble() * 0.3f + 0.7f, (float)r.NextDouble() * 0.2f + 0.0f, 0f);
             float size = (float)r.NextDouble() * 0.7f + 0.3f;
-            int ttl = 5 + r.Next(5);
+            int ttl = 5 + r.Next(10);
 
             return new Particle(type, position, dir, speed, angle, angularVelocity, color, size, 0, ttl, 1);
         }
@@ -317,12 +317,12 @@ namespace EbaucheProjet
         {
             Vector2 position = pos;
             Vector2 dir = Vector2.Normalize(new Vector2((float)(r.NextDouble() * 2 - 1), (float)(r.NextDouble() * 2 - 1)));
-            float speed = (float)r.NextDouble() * 1.5f + 0.0f;
+            float speed = (float)r.NextDouble() * 0.5f + 0.0f;
             float angle = 0f;
             float angularVelocity = 0.1f * (float)(r.NextDouble() * 2 - 1);
             Color color;
             if (smoke) { float temp = (float)r.NextDouble() * 0.5f + 0.2f; color = new Color(temp, temp, temp); }
-            else { color = new Color(1f, (float)r.NextDouble() * 0.5f + 0.2f, 0f); }
+            else { color = new Color(1f, (float)r.NextDouble() * 0.5f + 0.2f, (float)r.NextDouble() * 0.2f); }
             float size = (float)r.NextDouble() * 2f + 0.5f;
             int ttl = 15 + r.Next(15);
 
