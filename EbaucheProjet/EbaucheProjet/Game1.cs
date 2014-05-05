@@ -125,6 +125,8 @@ namespace EbaucheProjet
             if (Keyboard.GetState().IsKeyDown(Keys.D3)) particleEngine.type = 2;
             if (Keyboard.GetState().IsKeyDown(Keys.D4)) particleEngine.type = 3;
             if (Keyboard.GetState().IsKeyDown(Keys.D5)) particleEngine.type = 4;
+            if (Keyboard.GetState().IsKeyDown(Keys.D6)) particleEngine.type = 5;
+            if (Keyboard.GetState().IsKeyDown(Keys.D7)) particleEngine.type = 6;
 
             #endregion Touches
 
@@ -155,7 +157,7 @@ namespace EbaucheProjet
                 gameMap.Draw(spriteBatch);
             spriteBatch.End();
 
-            spriteBatch.Begin(SpriteSortMode.Texture, BlendState.AlphaBlend, null, null, null, null, camera.transform);
+            spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, null, null, null, null, camera.transform);
                 foreach (Personnage p in personnages) p.Draw(spriteBatch);
                 particleEngine.Draw(spriteBatch);
             spriteBatch.End();

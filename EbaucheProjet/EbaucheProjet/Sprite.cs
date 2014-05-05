@@ -17,19 +17,14 @@ namespace EbaucheProjet
         #region Vars
 
         public string name; // nom du sprite
-
         public Texture2D texture; // texture
-
         public Vector2 pos; // point haut gauche dans le jeu
-
         public Color color; // Couleur du calque
-
         public List<Rectangle> hitbox;
 
         public int phase; // phase courante
         public int nbPhasesTotal; // nb de phases total
         public int nbPhases; // nb de phases 
-
         public int actualisation; // Tous les cb de temps on changera de phase (en ms)
 
         public float scale; // Scale, pour le redimentionnement
