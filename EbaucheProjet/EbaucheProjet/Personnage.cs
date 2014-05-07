@@ -100,7 +100,7 @@ namespace EbaucheProjet
         public virtual void GetActions()
         { }
 
-        public void takeDamage(int damage)
+        public void takeDamage(int damage, Vector2 pos)
         {
             life -= damage;
             if (life <= 0)
