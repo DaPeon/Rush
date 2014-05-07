@@ -69,6 +69,8 @@ namespace EbaucheProjet
         public int TTL;
         public int bumpPrecision;
 
+        public Rectangle hitbox;
+
         #endregion Vars
 
         public Particle(int type, Vector2 position, Vector2 dir, float speed, float angle, float angularVelocity, Color color, float size, int bumpin, int ttl, int bumpPrecision)
@@ -90,6 +92,8 @@ namespace EbaucheProjet
             this.bumpin = bumpin;
             this.TTL = ttl;
             this.bumpPrecision = bumpPrecision;
+
+            hitbox = new Rectangle((int)position.X - width / 2, (int)position.Y - height / 2, width, height);
         }
 
         public void MouvWithCollisions(Map map)
@@ -160,6 +164,9 @@ namespace EbaucheProjet
                 if (bumpin <= 0) { Impact(); position -= dir * intervalle; }
                 if (bumpin > 0) { bumpin--; position -= dir * intervalle; dir.Y = -dir.Y; }
             }
+
+
+            hitbox = new Rectangle((int)position.X - width / 2, (int)position.Y - height / 2, width, height);
         }
 
         public void Update(Map map)
@@ -198,44 +205,4 @@ namespace EbaucheProjet
     // Teleportation particles
     // Electro
     // Much much more
-    
-    public class GravityParticle : Particle
-    {
-        #region Vars
-        
-        public bool gravityOn;
-        public bool dissapearOnPoint;
-        public Vector2 gravityPoint;
-        public float gravityValue;
-
-        #endregion Vars
-
-        public GravityParticle(int type, Vector2 position, Vector2 dir, float speed, float angle, float angularVelocity, Color color, float size, int bumpin, int ttl, int bumpPrecision,
-            Vector2 gravityPoint, float gravityValue, bool gravityOn, bool dissapearOnPoint)
-            : base(type, position, dir, speed, angle, angularVelocity, color, size, bumpin, ttl, bumpPrecision)
-        {
-            this.gravityPoint = gravityPoint;
-            this.gravityValue = gravityValue;
-            this.gravityOn = gravityOn;
-            this.dissapearOnPoint = dissapearOnPoint;
-        }
-
-        public void Update(Map map, Vector2 point)
-        {
-            gravityPoint = point;
-
-            this.Update(map);
-        }
-
-        public void Update(Map map)
-        {
-            base.Update(map);
-
-            if (position == gravityPoint && dissapearOnPoint) Die();
-
-            Vector2 gravityDir = new Vector2(); gravityDir = gravityPoint; gravityDir.Normalize();
-            if(gravityOn) position += gravityDir * gravityValue;
-        }
-
-    }
 }

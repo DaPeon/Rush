@@ -23,6 +23,9 @@ namespace EbaucheProjet
         public Vector2 mid; // Centre du personnage ( sert d'axe pour la rotation)
         public Vector2 dir; // Direction du personnage
 
+        public int life;
+        public bool alive;
+
         public bool shootLeft; public Vector2 leftPos;
         public bool shootRight; public Vector2 RightPos;
         public Weapon weaponLeft;
@@ -97,7 +100,14 @@ namespace EbaucheProjet
         public virtual void GetActions()
         { }
 
-        public virtual void Update(GameTime gt, Vector2 lookedPoint, Map map, Camera2D cam) // Update position
+        public void takeDamage(int damage)
+        {
+            life -= damage;
+            if (life <= 0)
+            { alive = false; }
+        }
+
+        public virtual void Update(GameTime gt, Vector2 lookedPoint, Map map, Camera2D cam, List<Personnage> personnages) // Update position
         {
             Mouv();
             
@@ -123,10 +133,10 @@ namespace EbaucheProjet
             GetActions();
 
             if (shootLeft) weaponLeft.Shoot();
-            weaponLeft.Update(gt, mid, dir, map);
+            weaponLeft.Update(gt, mid + dir*(int)(Math.Sqrt(largeur*largeur+hauteur*hauteur)/2), dir, map, personnages);
             
             if (shootRight) weaponRight.Shoot();
-            weaponRight.Update(gt, mid, dir, map);
+            weaponRight.Update(gt, mid + dir * (int)(Math.Sqrt(largeur * largeur + hauteur * hauteur) / 2), dir, map, personnages);
 
 
 
@@ -138,9 +148,9 @@ namespace EbaucheProjet
             base.Update(gt);
         }
 
-        public void Update(GameTime gt, Map map, Camera2D cam) // Update position
+        public void Update(GameTime gt, Map map, Camera2D cam, List<Personnage> personnages) // Update position
         {
-            this.Update(gt, pos, map, cam);
+            this.Update(gt, pos, map, cam, personnages);
         }
         
         public void LoadTextures(ContentManager cm, string textureName) // Load texture
@@ -151,10 +161,13 @@ namespace EbaucheProjet
         }
 
 
-        public Personnage(string name, Vector2 pos, int nbPhases) : base(name, pos, nbPhases, Color.White) // Constructeur (ne pas oublier de load la texture)
+        public Personnage(string name, int life, Vector2 pos, int nbPhases) : base(name, pos, nbPhases, Color.White) // Constructeur (ne pas oublier de load la texture)
         {
             speed = 3;
             defaultSpeed = speed;
+
+            this.life = life;
+            alive = true;
 
             weaponLeft = new Balle();
             weaponRight = new LanceBoule(); 

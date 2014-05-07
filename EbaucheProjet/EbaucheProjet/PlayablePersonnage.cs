@@ -63,13 +63,13 @@ namespace EbaucheProjet
             if (Mouse.GetState().RightButton == ButtonState.Released && !canShootRight) canShootRight = true;
         }
 
-        public override void Update(GameTime gt, Vector2 lookedPoint, Map map, Camera2D cam)
+        public override void Update(GameTime gt, Vector2 lookedPoint, Map map, Camera2D cam, List<Personnage> personnages)
         {
-            base.Update(gt, lookedPoint, map, cam);
+            base.Update(gt, lookedPoint, map, cam, personnages);
             if (Mouse.GetState().LeftButton == ButtonState.Pressed || Mouse.GetState().RightButton == ButtonState.Pressed) phase = nbPhasesTotal;
         }
 
-        public PlayablePersonnage(string name, Vector2 pos, int nbPhases, Color couleur, Keys h, Keys g, Keys b, Keys d) : base(name, pos, nbPhases)
+        public PlayablePersonnage(string name, int life, Vector2 pos, int nbPhases, Color couleur, Keys h, Keys g, Keys b, Keys d) : base(name, life, pos, nbPhases)
         {
             largeur = 64;
             hauteur = 64;

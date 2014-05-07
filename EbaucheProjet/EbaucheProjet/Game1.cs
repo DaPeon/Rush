@@ -31,7 +31,7 @@ namespace EbaucheProjet
         FPSCounter FPS;
 
         ParticleEngine particleEngine;
-
+        
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -54,13 +54,16 @@ namespace EbaucheProjet
             // TODO: Add your initialization logic here
             graphics.PreferredBackBufferWidth = 1280;
             graphics.PreferredBackBufferHeight = 720;
+            graphics.PreferMultiSampling = true;
+
+            graphics.ApplyChanges();
 
             Geometric.Init(GraphicsDevice);
             Options.Init(graphics);
 
             camera = new Camera2D(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
             
-            player1 = new PlayablePersonnage("player1", new Vector2(64, 64), 8, Color.White, Keys.Z, Keys.Q, Keys.S, Keys.D); // New bonhomme (jacket)
+            player1 = new PlayablePersonnage("player1", 100, new Vector2(64, 64), 8, Color.White, Keys.Z, Keys.Q, Keys.S, Keys.D); // New bonhomme (jacket)
             personnages = new List<Personnage>();
             personnages.Add(player1);
 
@@ -72,7 +75,6 @@ namespace EbaucheProjet
             FPS = new FPSCounter();
 
             gameMap = new Map();
-
             base.Initialize();
         }
 
@@ -138,10 +140,10 @@ namespace EbaucheProjet
 
             if (Keyboard.GetState().IsKeyDown(Keys.P)) return; // Pause
 
-            player1.Update(gameTime, cursor.globalMid, gameMap, camera); // Jacket s'update
+            player1.Update(gameTime, cursor.globalMid, gameMap, camera, personnages); // Jacket s'update
             Options.GetOptions(graphics);
             particleEngine.Update(gameMap, player1.mid);
-
+            Console.WriteLine(player1.life);// REMOVE
             base.Update(gameTime);
         }
 

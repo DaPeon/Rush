@@ -153,7 +153,7 @@ namespace EbaucheProjet
         public void Update(GameTime gameTime)
         {
             transform = Matrix.Identity *
-                        Matrix.CreateTranslation(-pos.X, -pos.Y, 0) *
+                        Matrix.CreateTranslation(-pos.X, -pos.Y, 0) * 
                         Matrix.CreateRotationZ(rotation) *
                         Matrix.CreateTranslation(origin.X, origin.Y, 0) *
                         Matrix.CreateScale(new Vector3(scale, scale, scale));

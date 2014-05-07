@@ -18,6 +18,9 @@ namespace EbaucheProjet
         public bool lastGenHappened;
         Weapons w;
 
+        public bool canDamagePlayer;
+
+
         public Bullet(int type, Vector2 position, Vector2 dir, float speed, float size, Color color, int bumpin, int TTL, Weapons w)
             : base(type, position, dir, speed, 0f, 0f, color, size, bumpin, TTL, 5)
         {
@@ -25,6 +28,8 @@ namespace EbaucheProjet
             pEngine = Type.GetTypeOfEngine(w);
             toRemove = false;
             lastGenHappened = false;
+
+            canDamagePlayer = true;
         }
 
         
@@ -129,18 +134,21 @@ namespace EbaucheProjet
         public Color color;
         public float size;
         public Weapons w;
+        public int damage;
 
         public int bulletsInterval;
         public int lastBullet;
 
 
-        public Weapon(int type, float speed, Color color, int bulletsInterval, float size, int bumpin, int TTL, Weapons w)
+        public Weapon(int type, float speed, Color color, int bulletsInterval, float size, int bumpin, int TTL, int damage, Weapons w)
         {
             this.speed = speed;
             this.type = type;
             this.color = color;
             this.size = size;
             this.TTL = TTL;
+            this.damage = damage;
+            
             this.w = w;
 
             this.bulletsInterval = bulletsInterval;
@@ -150,7 +158,7 @@ namespace EbaucheProjet
             bg = new BulletGenerator(type, speed, color,size, bumpin, TTL, w);
         }
 
-        public void Update(GameTime gt, Vector2 pos, Vector2 dir, Map map)
+        public void Update(GameTime gt, Vector2 pos, Vector2 dir, Map map, List<Personnage> personnages)
         {
             bg.add = false;
 
@@ -162,6 +170,19 @@ namespace EbaucheProjet
             }
             else
                 shoot = false;
+            
+            foreach (Bullet b in bg.bullets)
+                if (b.canDamagePlayer)
+                {
+                    foreach (Personnage p in personnages)
+                        foreach (Rectangle r in p.hitbox)
+                            if (r.Intersects(b.hitbox))
+                            {
+                                p.takeDamage(damage, b.position);
+                                b.Impact();
+                                b.canDamagePlayer = false;
+                            }
+                }
 
             bg.Update(pos, dir, map);
         }
@@ -199,11 +220,11 @@ namespace EbaucheProjet
         }
     }
 
-    // Weapon : BulletType, BulletSpeed, BulletColor, 1000/BulletsPerSecond, BulletSize, BulletBumps ,BulletLifeTime, WeaponType
+    // Weapon : BulletType, BulletSpeed, BulletColor, 1000/BulletsPerSecond, BulletSize, BulletBumps ,BulletLifeTime, WeaponDamage, WeaponType
 
     public class LanceBoule : Weapon
     {
-        public LanceBoule() : base(4, 10, Color.Red, 1000 / 1, 1.3f, 3, 500, Weapons.LanceBoule) { }
+        public LanceBoule() : base(4, 10, Color.Red, 1000 / 1, 1.3f, 3, 500, 100, Weapons.LanceBoule) { }
     }
 
     public class LanceBouleParticle : ParticleEngine
@@ -234,7 +255,7 @@ namespace EbaucheProjet
 
     public class Lazer : Weapon
     {
-        public Lazer() : base(0, 10, Color.Blue, 1000 / 1000, 1f, 5, 500, Weapons.Lazer) { }
+        public Lazer() : base(0, 10, Color.Blue, 1000 / 1000, 1f, 5, 500, 50, Weapons.Lazer) { }
     }
 
     public class LanceLazerParticle : ParticleEngine
@@ -271,7 +292,7 @@ namespace EbaucheProjet
 
     public class Caillou : Weapon
     {
-        public Caillou() : base(5, 6, new Color(0.1f, 0.1f, 0.1f), 1000 / 4, 1f, 1, 500, Weapons.Caillou) { }
+        public Caillou() : base(5, 6, new Color(0.1f, 0.1f, 0.1f), 1000 / 4, 1f, 1, 500, 25, Weapons.Caillou) { }
     }
 
     public class CaillouParticle : ParticleEngine
@@ -303,7 +324,7 @@ namespace EbaucheProjet
 
     public class Balle : Weapon
     {
-        public Balle() : base(2, 15, Color.Black, 1000 / 4, 1f, 0, 500, Weapons.Balle) { }
+        public Balle() : base(2, 15, Color.Black, 1000 / 4, 1f, 0, 500, 15, Weapons.Balle) { }
     }
 
     public class BalleParticle : ParticleEngine
