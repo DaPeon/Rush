@@ -178,7 +178,7 @@ namespace EbaucheProjet
                         foreach (Rectangle r in p.hitbox)
                             if (r.Intersects(b.hitbox))
                             {
-                                p.takeDamage(damage, b.position);
+                                p.takeDamage(damage, b.position, b.dir);
                                 b.Impact();
                                 b.canDamagePlayer = false;
                             }

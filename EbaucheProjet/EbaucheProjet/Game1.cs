@@ -143,7 +143,7 @@ namespace EbaucheProjet
             player1.Update(gameTime, cursor.globalMid, gameMap, camera, personnages); // Jacket s'update
             Options.GetOptions(graphics);
             particleEngine.Update(gameMap, player1.mid);
-            Console.WriteLine(player1.life);// REMOVE
+
             base.Update(gameTime);
         }
 

@@ -169,7 +169,7 @@ namespace EbaucheProjet
             hitbox = new Rectangle((int)position.X - width / 2, (int)position.Y - height / 2, width, height);
         }
 
-        public void Update(Map map)
+        public virtual void Update(Map map)
         {
             TTL--;
             if (TTL < 0) Die();

@@ -31,6 +31,8 @@ namespace EbaucheProjet
         public Weapon weaponLeft;
         public Weapon weaponRight;
 
+        public List<Bleeding> bleedingList;
+
         #endregion Vars
 
 
@@ -44,12 +46,14 @@ namespace EbaucheProjet
             weaponLeft.Draw(sb);
             weaponRight.Draw(sb);
             sb.Draw(texture, mid, new Rectangle(phase * largeur, 0, largeur, hauteur), Color.White, rotation, new Vector2(largeur / 2, hauteur / 2), scale, SpriteEffects.None, 0);
+
+            foreach (Bleeding b in bleedingList) b.Draw(sb);
         }
 
         public void SetHitbox()
         {
             hitbox = new List<Rectangle>();
-            hitbox.Add(new Rectangle((int)pos.X + 19, (int)pos.Y + 19, 43 - 19, 43 - 19));
+            hitbox.Add(new Rectangle((int)pos.X + 19, (int)pos.Y + 19, 64 - 2*19, 64 - 2*19));
         }
 
         public void MouvWithHitBoxes(Map map)
@@ -100,11 +104,13 @@ namespace EbaucheProjet
         public virtual void GetActions()
         { }
 
-        public void takeDamage(int damage, Vector2 pos)
+        public void takeDamage(int damage, Vector2 hitPos, Vector2 hitDir)
         {
             life -= damage;
             if (life <= 0)
             { alive = false; }
+
+            bleedingList.Add(new Bleeding(hitPos, -hitDir));
         }
 
         public virtual void Update(GameTime gt, Vector2 lookedPoint, Map map, Camera2D cam, List<Personnage> personnages) // Update position
@@ -138,7 +144,7 @@ namespace EbaucheProjet
             if (shootRight) weaponRight.Shoot();
             weaponRight.Update(gt, mid + dir * (int)(Math.Sqrt(largeur * largeur + hauteur * hauteur) / 2), dir, map, personnages);
 
-
+            foreach (Bleeding b in bleedingList) b.Update(map);
 
             if (mov == Vector2.Zero)
                 nbPhases = 0;
@@ -179,6 +185,8 @@ namespace EbaucheProjet
 
             leftPos = new Vector2(0, 0);
             RightPos = new Vector2(0, 0);
+
+            bleedingList = new List<Bleeding>();
         }
     }
 }
