@@ -66,6 +66,7 @@ namespace EbaucheProjet
             player1 = new PlayablePersonnage("player1", 100, new Vector2(64, 64), 8, Color.White, Keys.Z, Keys.Q, Keys.S, Keys.D); // New bonhomme (jacket)
             personnages = new List<Personnage>();
             personnages.Add(player1);
+            personnages.Add(new Bot("bot1", 100, new Vector2(640,640), 8));
 
 
             cursor = new Cursor();
@@ -89,7 +90,10 @@ namespace EbaucheProjet
 
 
             // TODO: use this.Content to load your game content here
-            player1.LoadTextures(Content, "persoMapV2"); // Load la texture de jacket
+            
+            //player1.LoadTextures(Content, "persoMapV2"); // Load la texture de jacket
+            foreach (Personnage p in personnages) p.LoadTextures(Content, "persoMapV2");
+            
             cursor.LoadTextures(Content,"CursorsW"); // Load les textures de la souris
 
             ParticleTextures.LoadTextures(Content);
@@ -140,7 +144,8 @@ namespace EbaucheProjet
 
             if (Keyboard.GetState().IsKeyDown(Keys.P)) return; // Pause
 
-            player1.Update(gameTime, cursor.globalMid, gameMap, camera, personnages); // Jacket s'update
+            foreach (Personnage p in personnages) p.Update(gameTime, cursor.globalMid, gameMap, camera, personnages);
+
             Options.GetOptions(graphics);
             particleEngine.Update(gameMap, player1.mid);
 

@@ -176,7 +176,7 @@ namespace EbaucheProjet
             alive = true;
 
             weaponLeft = new Balle();
-            weaponRight = new LanceBoule(); 
+            weaponRight = new LanceBoule();
 
             shootLeft = false;
             shootRight = false;

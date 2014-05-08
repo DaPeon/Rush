@@ -111,6 +111,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attack.cs" />
+    <Compile Include="Bot.cs" />
     <Compile Include="Camera.cs" />
     <Compile Include="Cursor.cs" />
     <Compile Include="FPS.cs" />
