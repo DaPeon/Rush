@@ -66,12 +66,12 @@ namespace EbaucheProjet
         {
             Vector2 position = pos;
             Vector2 dir = Vector2.Normalize(new Vector2((float)(r.NextDouble() * 2 - 1), (float)(r.NextDouble() * 2 - 1)));
-            float speed = (float)r.NextDouble() * 1f + 1.2f;
+            float speed = (float)r.NextDouble() * 1.5f + 1f;
             float angle = 0f;
             float angularVelocity = 0.1f * (float)(r.NextDouble() * 2 - 1);
-            Color color = new Color((float)r.NextDouble(), (float)r.NextDouble(), (float)r.NextDouble());
-            float size = (float)r.NextDouble() * 0.7f + 0.3f;
-            int ttl = 100 + r.Next(50);
+            Color color = new Color((float)r.NextDouble() * 1f, (float)r.NextDouble() * 1f, (float)r.NextDouble() * 1f);
+            float size = (float)r.NextDouble() * 1f + 0.3f;
+            int ttl = 200 + r.Next(100);
 
             return new Particle(type, position, dir, speed, angle, angularVelocity, color, size, 10, ttl, 1);
         }

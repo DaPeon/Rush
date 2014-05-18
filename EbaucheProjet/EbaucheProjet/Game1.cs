@@ -66,7 +66,7 @@ namespace EbaucheProjet
             player1 = new PlayablePersonnage("player1", 100, new Vector2(64, 64), 8, Color.White, Keys.Z, Keys.Q, Keys.S, Keys.D); // New bonhomme (jacket)
             personnages = new List<Personnage>();
             personnages.Add(player1);
-            personnages.Add(new Bot("bot1", 100, new Vector2(640,640), 8));
+            personnages.Add(new Bot("bot1", 100, new Vector2(64 * 11, 64 * 2), Color.Red, 8));
 
 
             cursor = new Cursor();
@@ -153,7 +153,7 @@ namespace EbaucheProjet
         }
 
         /// <summary>
-        /// This is called when the game should draw itself.
+        /// This is called when the game should dr'aw itself.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)

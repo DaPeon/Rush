@@ -127,10 +127,7 @@ namespace EbaucheProjet
             rotation = (float)(Math.Atan2((double)dir.Y, (double)dir.X)) + MathHelper.Pi / 2;
 
 
-            leftPos = mid - (new Vector2(20, 0));
-            RightPos = mid + (new Vector2(20, 0));
             Vector2 dirL = new Vector2(); Vector2 dirR = new Vector2();
-
             dirL = lookedPoint - leftPos;
             dirL.Normalize();
             dirR = lookedPoint - RightPos;
@@ -139,10 +136,10 @@ namespace EbaucheProjet
             GetActions();
 
             if (shootLeft) weaponLeft.Shoot();
-            weaponLeft.Update(gt, mid + dir*(int)(Math.Sqrt(largeur*largeur+hauteur*hauteur)/2), dir, map, personnages);
+            weaponLeft.Update(gt, mid + dir * (largeur / 2), dir, map, this, personnages);
             
             if (shootRight) weaponRight.Shoot();
-            weaponRight.Update(gt, mid + dir * (int)(Math.Sqrt(largeur * largeur + hauteur * hauteur) / 2), dir, map, personnages);
+            weaponRight.Update(gt, mid + dir * (largeur / 2), dir, map, this, personnages);
 
             foreach (Bleeding b in bleedingList) b.Update(map);
 

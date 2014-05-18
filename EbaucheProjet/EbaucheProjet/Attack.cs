@@ -94,13 +94,6 @@ namespace EbaucheProjet
             {
                 bullets[i].Update(map);
 
-
-                if (bullets[i].impact)
-                {
-                    // TODO
-                    // Gérer des impacts
-                }
-
                 if (bullets[i].toRemove)
                 {
                     bullets.Remove(bullets[i]);
@@ -158,7 +151,7 @@ namespace EbaucheProjet
             bg = new BulletGenerator(type, speed, color,size, bumpin, TTL, w);
         }
 
-        public void Update(GameTime gt, Vector2 pos, Vector2 dir, Map map, List<Personnage> personnages)
+        public void Update(GameTime gt, Vector2 pos, Vector2 dir, Map map, Personnage owner, List<Personnage> personnages)
         {
             bg.add = false;
 
@@ -175,13 +168,18 @@ namespace EbaucheProjet
                 if (b.canDamagePlayer)
                 {
                     foreach (Personnage p in personnages)
-                        foreach (Rectangle r in p.hitbox)
-                            if (r.Intersects(b.hitbox))
+                        if(p != owner)
+                        {
+                            foreach (Rectangle r in p.hitbox)
                             {
-                                p.takeDamage(damage, b.position, b.dir);
-                                b.Impact();
-                                b.canDamagePlayer = false;
+                                if (r.Intersects(b.hitbox))
+                                {
+                                    p.takeDamage(damage, b.position, b.dir);
+                                    b.Impact();
+                                    b.canDamagePlayer = false;
+                                }
                             }
+                        }
                 }
 
             bg.Update(pos, dir, map);

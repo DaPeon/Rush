@@ -78,9 +78,9 @@ namespace EbaucheProjet
             float speed = (float)r.NextDouble() * 8f + 0f;
             float angle = 0f;
             float angularVelocity = 0.1f * (float)(r.NextDouble() * 2 - 1);
-            Color color = new Color(0f, 0f, (float)r.NextDouble() * 0.2f + 0.8f);
+            Color color = new Color(0f, 0f, (float)r.NextDouble() * 0.8f + 0.2f);
             float size = (float)r.NextDouble() * 0.7f + 0.3f;
-            int ttl = 5000 + r.Next(5000);
+            int ttl = 300 + r.Next(300);
             int timeToMove = 5;
 
             return new BloodParticle(type, position, dir, speed, angle, angularVelocity, color, size, 0, ttl, timeToMove, 1);
