@@ -12,10 +12,18 @@ using Microsoft.Xna.Framework.Media;
 
 namespace EbaucheProjet
 {
+    public enum gamePersonnage
+	{
+        player,
+        alien
+	}
+
     public class Personnage : Sprite
     {
 
         #region Vars
+
+        public gamePersonnage type;
 
         public float speed; // Vitesse en pixel
         public Vector2 mov; // Mouvement a venir
@@ -154,16 +162,26 @@ namespace EbaucheProjet
         {
             this.Update(gt, pos, map, cam, personnages);
         }
-        
-        public void LoadTextures(ContentManager cm, string textureName) // Load texture
+
+        public string GetTextureName(gamePersonnage type)
         {
-            base.LoadTextures(cm, textureName);
+            switch (type)
+            {
+                case gamePersonnage.player: return "persoMapV2";
+                case gamePersonnage.alien: return "ennemy";
+                default: return "persoMapV2";
+            }
+        }
+
+        public void LoadTextures(ContentManager cm) // Load texture
+        {
+            base.LoadTextures(cm, GetTextureName(type));
 
             mid = new Vector2(pos.X + largeur / 2, pos.Y + hauteur / 2);// On definit le milieu du perso, vu qu'on a sa largeur/hauteur
         }
 
 
-        public Personnage(string name, int life, Vector2 pos, int nbPhases) : base(name, pos, nbPhases, Color.White) // Constructeur (ne pas oublier de load la texture)
+        public Personnage(string name, gamePersonnage type, int life, Vector2 pos, int nbPhases) : base(name, pos, nbPhases, Color.White) // Constructeur (ne pas oublier de load la texture)
         {
             speed = 3;
 
@@ -180,6 +198,8 @@ namespace EbaucheProjet
 
             leftPos = new Vector2(0, 0);
             RightPos = new Vector2(0, 0);
+
+            this.type = type;
 
             bleedingList = new List<Bleeding>();
         }

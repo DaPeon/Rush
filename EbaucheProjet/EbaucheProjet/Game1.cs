@@ -65,10 +65,12 @@ namespace EbaucheProjet
             camera = new Camera2D(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
             Hud = new HUD();
 
-            player1 = new PlayablePersonnage("player1", 100, new Vector2(64, 64), 8, Color.White, Keys.Z, Keys.Q, Keys.S, Keys.D); // New bonhomme (jacket)
+            player1 = new PlayablePersonnage("player1", gamePersonnage.player, 100, new Vector2(64, 64), 8, Color.White, Keys.Z, Keys.Q, Keys.S, Keys.D); // New bonhomme 
+
             personnages = new List<Personnage>();
             personnages.Add(player1);
-            personnages.Add(new Bot("bot1", 100, new Vector2(64 * 11, 64 * 2), Color.Red, 8));
+
+            personnages.Add(new Bot("bot1", gamePersonnage.alien, 100, new Vector2(64 * 11, 64 * 2), 4));
 
 
             cursor = new Cursor();
@@ -94,7 +96,7 @@ namespace EbaucheProjet
             // TODO: use this.Content to load your game content here
             
             //player1.LoadTextures(Content, "persoMapV2"); // Load la texture de jacket
-            foreach (Personnage p in personnages) p.LoadTextures(Content, "persoMapV2");
+            foreach (Personnage p in personnages) p.LoadTextures(Content);
 
             Hud.LoadTextures(Content);
             cursor.LoadTextures(Content,"CursorsW"); // Load les textures de la souris

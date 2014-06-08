@@ -63,7 +63,8 @@ namespace EbaucheProjet
             if (Mouse.GetState().LeftButton == ButtonState.Pressed || Mouse.GetState().RightButton == ButtonState.Pressed) phase = nbPhasesTotal;
         }
 
-        public PlayablePersonnage(string name, int life, Vector2 pos, int nbPhases, Color couleur, Keys h, Keys g, Keys b, Keys d) : base(name, life, pos, nbPhases)
+        public PlayablePersonnage(string name, gamePersonnage type, int life, Vector2 pos, int nbPhases, Color couleur, Keys h, Keys g, Keys b, Keys d)
+            : base(name, type, life, pos, nbPhases)
         {
             largeur = 64;
             hauteur = 64;
