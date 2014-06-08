@@ -17,8 +17,7 @@ namespace EbaucheProjet
 
         #region Vars
 
-        public int speed; // Vitesse en pixel
-        public int defaultSpeed; // Vitesse de base
+        public float speed; // Vitesse en pixel
         public Vector2 mov; // Mouvement a venir
         public Vector2 mid; // Centre du personnage ( sert d'axe pour la rotation)
         public Vector2 dir; // Direction du personnage
@@ -63,7 +62,7 @@ namespace EbaucheProjet
             // On sépare le mouvement en X et Y
             // En X
             float x = 0;
-            while (x != mov.X && !intersect)
+            while (x != (int)mov.X && !intersect)
             {
                 pos.X += x; // On bouge
                 SetHitbox();
@@ -77,12 +76,12 @@ namespace EbaucheProjet
                 if (intersect == true) pos.X -= x; // On annule
                 SetHitbox();
 
-                x += (mov.X>0)?1:-1;
+                x += ((int)mov.X>0)?1:-1;
             }
             // Et en Y
             intersect = false;
             float y= 0;
-            while (y != mov.Y && !intersect)
+            while (y != (int)mov.Y && !intersect)
             {
                 pos.Y += y; // On bouge
                 SetHitbox();
@@ -96,7 +95,7 @@ namespace EbaucheProjet
                 if (intersect == true) pos.Y -= y; // On annule
                 SetHitbox();
 
-                y += (mov.Y > 0) ? 1 : -1;
+                y += ((int)mov.Y > 0) ? 1 : -1;
             }
             // Fin des hitbox check
         }
@@ -167,7 +166,6 @@ namespace EbaucheProjet
         public Personnage(string name, int life, Vector2 pos, int nbPhases) : base(name, pos, nbPhases, Color.White) // Constructeur (ne pas oublier de load la texture)
         {
             speed = 3;
-            defaultSpeed = speed;
 
             this.life = life;
             alive = true;

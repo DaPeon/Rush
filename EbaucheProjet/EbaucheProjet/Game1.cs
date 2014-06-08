@@ -29,6 +29,7 @@ namespace EbaucheProjet
 
         Map gameMap;
         FPSCounter FPS;
+        HUD Hud;
 
         ParticleEngine particleEngine;
         
@@ -62,7 +63,8 @@ namespace EbaucheProjet
             Options.Init(graphics);
 
             camera = new Camera2D(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
-            
+            Hud = new HUD();
+
             player1 = new PlayablePersonnage("player1", 100, new Vector2(64, 64), 8, Color.White, Keys.Z, Keys.Q, Keys.S, Keys.D); // New bonhomme (jacket)
             personnages = new List<Personnage>();
             personnages.Add(player1);
@@ -93,7 +95,8 @@ namespace EbaucheProjet
             
             //player1.LoadTextures(Content, "persoMapV2"); // Load la texture de jacket
             foreach (Personnage p in personnages) p.LoadTextures(Content, "persoMapV2");
-            
+
+            Hud.LoadTextures(Content);
             cursor.LoadTextures(Content,"CursorsW"); // Load les textures de la souris
 
             ParticleTextures.LoadTextures(Content);
@@ -117,12 +120,14 @@ namespace EbaucheProjet
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+
             #region Touches
 
             if (Keyboard.GetState().IsKeyDown(Keys.Escape)) this.Exit(); // Exit
 
             if (Keyboard.GetState().IsKeyDown(Keys.LeftShift)) camera.focus = cursor.globalMid;
-            if (Keyboard.GetState().IsKeyDown(Keys.LeftControl)) player1.pos = cursor.globalMid - (new Vector2(player1.largeur, player1.hauteur)) / 2;
+            if (Keyboard.GetState().IsKeyDown(Keys.LeftControl)) personnages[0].pos = cursor.globalMid - (new Vector2(player1.largeur, player1.hauteur)) / 2;
+            if (Keyboard.GetState().IsKeyDown(Keys.RightControl)) personnages[1].pos = cursor.globalMid - (new Vector2(player1.largeur, player1.hauteur)) / 2;
 
             if (Mouse.GetState().MiddleButton == ButtonState.Pressed) particleEngine.on = true;
             if (Keyboard.GetState().IsKeyDown(Keys.D0)) particleEngine.on = false;
@@ -146,6 +151,7 @@ namespace EbaucheProjet
 
             foreach (Personnage p in personnages) p.Update(gameTime, cursor.globalMid, gameMap, camera, personnages);
 
+            Hud.Update(FPS.GetFPS());
             Options.GetOptions(graphics);
             particleEngine.Update(gameMap, player1.mid);
 
@@ -170,6 +176,7 @@ namespace EbaucheProjet
             spriteBatch.End();
 
             spriteBatch.Begin();
+            Hud.Draw(spriteBatch);
                 cursor.Draw(spriteBatch); // On affiche le curseur
             spriteBatch.End();
 
@@ -177,7 +184,6 @@ namespace EbaucheProjet
             base.Draw(gameTime);
 
             FPS.UpdateFPS(gameTime.TotalGameTime.Milliseconds);
-            FPS.ShowFPS();
         }
     }
 }

@@ -71,19 +71,38 @@ namespace EbaucheProjet
 
         public override Particle NewParticle()
         {
-            Vector2 position = pos;
-            Vector2 dir = -bloodDir + new Vector2((float)r.NextDouble()*0.4f - 0.2f, (float)r.NextDouble()*0.4f - 0.2f) * 1.0f;
-            dir.Normalize();
-            position += dir * 25f;
-            float speed = (float)r.NextDouble() * 8f + 0f;
-            float angle = 0f;
-            float angularVelocity = 0.1f * (float)(r.NextDouble() * 2 - 1);
-            Color color = new Color(0f, 0f, (float)r.NextDouble() * 0.8f + 0.2f);
-            float size = (float)r.NextDouble() * 0.7f + 0.3f;
-            int ttl = 300 + r.Next(300);
-            int timeToMove = 5;
+            if (r.Next(2) == 0)
+            {
+                Vector2 position = pos;
+                Vector2 dir = -bloodDir + new Vector2((float)r.NextDouble() * 0.4f - 0.2f, (float)r.NextDouble() * 0.4f - 0.2f) * 1.0f;
+                dir.Normalize();
+                position += dir * 25f;
+                float speed = (float)r.NextDouble() * 7f + 0f;
+                float angle = 0f;
+                float angularVelocity = 0.1f * (float)(r.NextDouble() * 2 - 1);
+                Color color = new Color(0f, 0f, (float)r.NextDouble() * 0.8f + 0.2f);
+                float size = (float)r.NextDouble() * 0.7f + 0.3f;
+                int ttl = 300 + r.Next(300);
+                int timeToMove = 5;
 
-            return new BloodParticle(type, position, dir, speed, angle, angularVelocity, color, size, 0, ttl, timeToMove, 1);
+                return new BloodParticle(type, position, dir, speed, angle, angularVelocity, color, size, 0, ttl, timeToMove, 1);
+
+            }
+            else
+            {
+                Vector2 position = pos;
+                Vector2 dir = Vector2.Normalize(new Vector2((float)(r.NextDouble() * 2 - 1), (float)(r.NextDouble() * 2 - 1)));
+                float speed = (float)r.NextDouble() * 2.5f + 0f;
+                float angle = 0f;
+                float angularVelocity = 0.1f * (float)(r.NextDouble() * 2 - 1);
+                Color color = new Color(0f, 0f, (float)r.NextDouble() * 0.8f + 0.2f);
+                float size = (float)r.NextDouble() * 0.7f + 0.3f;
+                int ttl = 300 + r.Next(300);
+                int timeToMove = 5;
+
+                return new BloodParticle(type, position, dir, speed, angle, angularVelocity, color, size, 0, ttl, timeToMove, 1);
+
+            }
         }
     }
 }

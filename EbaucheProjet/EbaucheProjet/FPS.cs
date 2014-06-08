@@ -14,7 +14,10 @@ namespace EbaucheProjet
         public int drawInterval;
         public int lastDraw;
         public int globalTime;
-        
+
+        public List<double> fpsList;
+        public double realFps;
+
         #endregion Vars
 
 
@@ -25,6 +28,8 @@ namespace EbaucheProjet
             drawInterval = 0;
             lastDraw = 0;
             globalTime = 0;
+
+            fpsList = new List<double>();
         }
 
         public void UpdateFPS(int time)
@@ -34,15 +39,23 @@ namespace EbaucheProjet
             lastDraw = time;
             lastFps = fps;
             fps = 1000 / (drawInterval==0?1:drawInterval);
+
+            fpsList.Add(fps);
+            if(fpsList.Count > 30) fpsList.RemoveAt(0);
+
+            realFps = 0;
+            foreach (double d in fpsList)
+            {
+                realFps += d;
+            }
+
+            realFps /= fpsList.Count;
+            realFps = (int)realFps;
         }
 
-        public void ShowFPS()
+        public string GetFPS()
         {
-            int x, y;
-            x = Console.CursorLeft; y = Console.CursorTop;
-            Console.SetCursorPosition(78, 0);
-            Console.WriteLine(fps);
-            Console.SetCursorPosition(x, y);
+            return (fpsList.Count > 0) ? realFps.ToString() :"";
         }
     }
 }

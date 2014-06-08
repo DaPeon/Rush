@@ -24,24 +24,18 @@ namespace EbaucheProjet
         public bool canShootLeft;
         public bool canShootRight;
 
+        public float speedInterval;
+
         #endregion Vars
 
 
         public override void Mouv() // Fct mouvement
         {
-            //speed = (Keyboard.GetState().IsKeyDown(Keys.LeftShift)) ? defaultSpeed*2: defaultSpeed;
 
-            mov = Vector2.Zero; // Vecteur mouvement a 0
-
-            mov.X += (Keyboard.GetState().IsKeyDown(d) ? speed : 0); //Droite
-            mov.X -= (Keyboard.GetState().IsKeyDown(g) ? speed : 0); //Gauche
-            mov.Y += (Keyboard.GetState().IsKeyDown(b) ? speed : 0); //Bas
-            mov.Y -= (Keyboard.GetState().IsKeyDown(h) ? speed : 0); //Haut
-
-            // Deplacement a la souris 
-            /*
-            if (Mouse.GetState().RightButton == ButtonState.Pressed)
-                mov += dir * speed;*/
+            if (Keyboard.GetState().IsKeyDown(d) && mov.X < speed) mov.X += speedInterval; if (mov.X > 0 && !Keyboard.GetState().IsKeyDown(d)) mov.X -= speedInterval;
+            if (Keyboard.GetState().IsKeyDown(g) && mov.X > -speed) mov.X -= speedInterval; if (mov.X < 0 && !Keyboard.GetState().IsKeyDown(g)) mov.X += speedInterval;
+            if (Keyboard.GetState().IsKeyDown(b) && mov.Y < speed) mov.Y += speedInterval; if (mov.Y > 0 && !Keyboard.GetState().IsKeyDown(b)) mov.Y -= speedInterval;
+            if (Keyboard.GetState().IsKeyDown(h) && mov.Y > -speed) mov.Y -= speedInterval; if (mov.Y < 0 && !Keyboard.GetState().IsKeyDown(h)) mov.Y += speedInterval;
         }
 
         public override void GetActions()
@@ -80,6 +74,8 @@ namespace EbaucheProjet
             this.g = g;
             this.b = b;
             this.d = d;
+
+            speedInterval = 0.5f;
         }
     }
 }

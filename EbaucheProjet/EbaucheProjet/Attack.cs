@@ -170,15 +170,24 @@ namespace EbaucheProjet
                     foreach (Personnage p in personnages)
                         if(p != owner)
                         {
+                            //Console.WriteLine(Vector2.Distance(p.mid, new Vector2(b.hitbox.Center.X, b.hitbox.Center.Y)) + "  " + Math.Sqrt((double)(p.largeur * p.largeur + p.hauteur * p.hauteur)));
+                            if (Vector2.Distance(p.mid, new Vector2(b.hitbox.Center.X, b.hitbox.Center.Y)) <
+                                Math.Sqrt((double)(Math.Pow((double)(p.hitbox[0].Width / 4), 2) + Math.Pow((double)(p.hitbox[0].Height / 4), 2))))
+                            {
+                                p.takeDamage(damage, b.position, b.dir);
+                                b.Impact();
+                                b.canDamagePlayer = false;
+                            }
+                            /*
                             foreach (Rectangle r in p.hitbox)
                             {
                                 if (r.Intersects(b.hitbox))
-                                {
+                                    {
                                     p.takeDamage(damage, b.position, b.dir);
                                     b.Impact();
                                     b.canDamagePlayer = false;
                                 }
-                            }
+                            }*/
                         }
                 }
 

@@ -116,6 +116,7 @@
     <Compile Include="Cursor.cs" />
     <Compile Include="FPS.cs" />
     <Compile Include="Geometric.cs" />
+    <Compile Include="HUD.cs" />
     <Compile Include="Options.cs" />
     <Compile Include="ParticleEngine.cs" />
     <Compile Include="ParticlesSystems.cs" />
