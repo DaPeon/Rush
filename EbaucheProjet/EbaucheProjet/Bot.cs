@@ -18,15 +18,28 @@ namespace EbaucheProjet
         public Bot(string name, gamePersonnage type, int life, Vector2 pos, int nbPhases) 
             : base(name, type, 100, pos, nbPhases)
         {
-            largeur = 32;
-            hauteur = 32;
 
-            List<Color> colorlist = new List<Color>();
-            //AddColors();
+            SetSize();
+
+            colorlist = new List<Color>();
+            AddColors();
 
             Random r = new Random();
 
-            color = new Color(233, 150, 122);//colorlist[r.Next(colorlist.Count)];
+            color = colorlist[r.Next(colorlist.Count)];
+        }
+
+        public void SetSize()
+        {
+            switch (type)
+            {
+                case gamePersonnage.player : largeur = 64; hauteur = 64;
+                    break;
+                case gamePersonnage.alien : largeur = 32; hauteur = 32;
+                    break;
+                default:
+                    break;
+            }
         }
 
         public void AddColors()
@@ -49,9 +62,6 @@ namespace EbaucheProjet
             colorlist.Add(new Color(255, 99, 71));
             colorlist.Add(new Color(154, 205, 50));
             colorlist.Add(new Color(245, 222, 179));
-
-
-
             
         }
 
@@ -64,9 +74,14 @@ namespace EbaucheProjet
             base.Update(gt, toLook, map, cam, personnages);
         }
 
-        public new void Mouv()
+        public override void Mouv()
         {
-            mov = new Vector2(1, 0);
+            mov = Vector2.Zero;
+
+            if (Keyboard.GetState().IsKeyDown(Keys.Up)) mov.Y = -speed;
+            if (Keyboard.GetState().IsKeyDown(Keys.Down)) mov.Y = speed;
+            if (Keyboard.GetState().IsKeyDown(Keys.Left)) mov.X = -speed;
+            if (Keyboard.GetState().IsKeyDown(Keys.Right)) mov.X = speed;
         }
     }
 }

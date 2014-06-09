@@ -54,6 +54,7 @@ namespace EbaucheProjet
 
         public bool alive;
         public bool impact;
+        public bool dieOnImpact;
 
         public int type;
         public int width;

@@ -52,15 +52,23 @@ namespace EbaucheProjet
         {
             weaponLeft.Draw(sb);
             weaponRight.Draw(sb);
-            sb.Draw(texture, mid, new Rectangle(phase * largeur, 0, largeur, hauteur), Color.White, rotation, new Vector2(largeur / 2, hauteur / 2), scale, SpriteEffects.None, 0);
+            sb.Draw(texture, mid, new Rectangle(phase * largeur, 0, largeur, hauteur), color, rotation, new Vector2(largeur / 2, hauteur / 2), scale, SpriteEffects.None, 0);
 
             foreach (Bleeding b in bleedingList) b.Draw(sb);
         }
-
-        public void SetHitbox()
+        
+        public override void SetHitbox()
         {
             hitbox = new List<Rectangle>();
-            hitbox.Add(new Rectangle((int)pos.X + 19, (int)pos.Y + 19, 64 - 2*19, 64 - 2*19));
+            switch (type)
+            {
+                case gamePersonnage.player: hitbox.Add(new Rectangle((int)pos.X + 19, (int)pos.Y + 19, largeur - 2 * 19, hauteur - 2 * 19));
+                    break;
+                case gamePersonnage.alien: hitbox.Add(new Rectangle((int)pos.X, (int)pos.Y,  largeur, hauteur));
+                    break;
+                default:
+                    break;
+            }
         }
 
         public void MouvWithHitBoxes(Map map)
@@ -117,7 +125,7 @@ namespace EbaucheProjet
             if (life <= 0)
             { alive = false; }
 
-            bleedingList.Add(new Bleeding(hitPos, -hitDir));
+            bleedingList.Add(new Bleeding(hitPos, -hitDir, color));
         }
 
         public virtual void Update(GameTime gt, Vector2 lookedPoint, Map map, Camera2D cam, List<Personnage> personnages) // Update position

@@ -41,13 +41,16 @@ namespace EbaucheProjet
         public int timeToBleed;
         public bool makeBlood;
         public Vector2 bloodDir;
+        public Color bloodColor;
 
-        public Bleeding(Vector2 pos, Vector2 bloodDir)
+        public Bleeding(Vector2 pos, Vector2 bloodDir, Color bloodColor)
             : base(pos, 2, 25, true)
         {
             timeToBleed = 5;
             makeBlood = true;
             this.bloodDir = bloodDir;
+
+            this.bloodColor = bloodColor;
         }
 
         public new void Update(Map map)
@@ -80,13 +83,12 @@ namespace EbaucheProjet
                 float speed = (float)r.NextDouble() * 7f + 0f;
                 float angle = 0f;
                 float angularVelocity = 0.1f * (float)(r.NextDouble() * 2 - 1);
-                Color color = new Color(0f, 0f, (float)r.NextDouble() * 0.8f + 0.2f);
+                Color color = new Color(bloodColor.R + r.Next(32) - 16, bloodColor.G + r.Next(32) - 16, bloodColor.B + r.Next(32) - 16);
                 float size = (float)r.NextDouble() * 0.7f + 0.3f;
                 int ttl = 300 + r.Next(300);
                 int timeToMove = 5;
 
                 return new BloodParticle(type, position, dir, speed, angle, angularVelocity, color, size, 0, ttl, timeToMove, 1);
-
             }
             else
             {
@@ -95,13 +97,12 @@ namespace EbaucheProjet
                 float speed = (float)r.NextDouble() * 2.5f + 0f;
                 float angle = 0f;
                 float angularVelocity = 0.1f * (float)(r.NextDouble() * 2 - 1);
-                Color color = new Color(0f, 0f, (float)r.NextDouble() * 0.8f + 0.2f);
+                Color color = new Color(bloodColor.R + r.Next(32) - 16, bloodColor.G + r.Next(32) - 16, bloodColor.B + r.Next(32) - 16);
                 float size = (float)r.NextDouble() * 0.7f + 0.3f;
                 int ttl = 300 + r.Next(300);
                 int timeToMove = 5;
 
                 return new BloodParticle(type, position, dir, speed, angle, angularVelocity, color, size, 0, ttl, timeToMove, 1);
-
             }
         }
     }

@@ -42,7 +42,7 @@ namespace EbaucheProjet
             SetHitbox();
         }
 
-        public void SetHitbox()
+        public virtual void SetHitbox()
         {
             hitbox = new List<Rectangle>();
             hitbox.Add(new Rectangle((int)pos.X, (int)pos.Y, largeur, hauteur));
